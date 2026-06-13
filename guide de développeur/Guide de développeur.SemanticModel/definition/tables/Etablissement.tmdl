@@ -1,0 +1,31 @@
+table Etablissement
+	lineageTag: 34b7637a-8a9b-4e23-a27e-835d89b2aca2
+
+	column CODE_ETAB
+		dataType: string
+		lineageTag: ec5db7eb-cefe-4d33-8159-809050107dd9
+		summarizeBy: none
+		sourceColumn: CODE_ETAB
+
+		annotation SummarizationSetBy = Automatic
+
+	column CODE_PAYS
+		dataType: string
+		lineageTag: f48aa6f5-2142-4db3-beaa-8f1377f0b732
+		summarizeBy: none
+		sourceColumn: CODE_PAYS
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Etablissement = m
+		mode: import
+		source =
+				let
+				    Source = Value.NativeQuery(GoogleBigQuery.Database([BillingProject=P_Billing_Project]){[Name=P_Project_Name]}[Data], "SELECT CODE_ETAB,CODE_PAYS FROM `raw_store_dwh.k_etablissements`", null, [EnableFolding=true])
+				in
+				    Source
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

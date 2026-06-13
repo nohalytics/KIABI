@@ -1,0 +1,22 @@
+table 'Local Currency'
+	lineageTag: 71c8a7b7-de81-4d01-bd73-13136c2e6b90
+
+	column 'Is local'
+		dataType: string
+		lineageTag: e83f3513-9be7-4974-9040-5344750bd71f
+		summarizeBy: none
+		sourceColumn: Is local
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Local Currency' = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WikwtVoqNBQA=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Is local" = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Is local", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

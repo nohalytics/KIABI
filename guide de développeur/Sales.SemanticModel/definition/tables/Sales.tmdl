@@ -1,0 +1,270 @@
+table Sales
+	isHidden
+	lineageTag: 37a7f4af-c7e7-47da-9b5f-122a6705db48
+
+	refreshPolicy
+		policyType: basic
+		rollingWindowGranularity: month
+		rollingWindowPeriods: 36
+		incrementalGranularity: month
+		incrementalPeriods: 2
+		sourceExpression = ```
+			let
+			Source = GoogleBigQuery.Database([ConnectionTimeout = #duration(0, 0, 5, 0), CommandTimeout=#duration(1, 0, 0, 0), BillingProject=P_Billing_Project]){[Name=P_Project_Name]}[Data],
+			Query = Value.NativeQuery(Source,"
+			SELECT
+			Date,
+			ID_Store,
+			ID_Product,
+			ID_Affected_collection,
+			ID_Sales_channel,
+			ID_Comparable_flag,
+			GMV_excl_VAT_local,
+			GMV_excl_VAT_euro,
+			Sales_PP_excl_VAT_local,
+			Sales_PP_excl_VAT_euro,
+			Sales_ISP_excl_VAT_local,
+			Sales_ISP_excl_VAT_euro,
+			Sales_FISC_excl_VAT_local,
+			Sales_FISC_excl_VAT_euro,
+			Sold_quantity
+			FROM `expo_self_bi_sales.sales_refco` 
+			        where 
+			   date >=date('" & DateTime.ToText(RangeStart, [Format="yyyy-MM-dd"]) &"')
+			    and    date  < date('" & DateTime.ToText(RangeEnd, [Format="yyyy-MM-dd"]) &"')
+			    order by ID_Product
+			    ", null, [EnableFolding=true])
+			in
+			    Query
+			```
+
+	column Date
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: 60159456-5b2e-40df-bfba-2c894049cb7b
+		summarizeBy: none
+		sourceColumn: Date
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column ID_Store
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 64d6f6f8-3171-4d4f-b69f-9635ef6aa051
+		summarizeBy: none
+		sourceColumn: ID_Store
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID_Product
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: de751e21-b117-4ec9-b7c1-679e64c553f4
+		summarizeBy: none
+		sourceColumn: ID_Product
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID_Affected_collection
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: bc863197-6761-402b-935b-aed4fc657d7b
+		summarizeBy: none
+		sourceColumn: ID_Affected_collection
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID_Sales_channel
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 2a50b1d5-cb43-47d5-805d-4af0a5b18af7
+		summarizeBy: none
+		sourceColumn: ID_Sales_channel
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID_Comparable_flag
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 2da7cf0a-8478-4138-b69f-066afd6863be
+		summarizeBy: none
+		sourceColumn: ID_Comparable_flag
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column GMV_excl_VAT_local
+		dataType: double
+		isHidden
+		lineageTag: a77a0778-ddb4-44b4-a45f-2eacbbbf158a
+		summarizeBy: sum
+		sourceColumn: GMV_excl_VAT_local
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column GMV_excl_VAT_euro
+		dataType: double
+		isHidden
+		lineageTag: 21a28e55-204e-4cb8-b53d-2357291acf7b
+		summarizeBy: sum
+		sourceColumn: GMV_excl_VAT_euro
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Sales_PP_excl_VAT_local
+		dataType: double
+		isHidden
+		lineageTag: a8ac9f34-5e34-4a7a-899e-514491638b13
+		summarizeBy: sum
+		sourceColumn: Sales_PP_excl_VAT_local
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Sales_PP_excl_VAT_euro
+		dataType: double
+		isHidden
+		lineageTag: 122d8185-0c89-4856-8f7c-7cc38681aa43
+		summarizeBy: sum
+		sourceColumn: Sales_PP_excl_VAT_euro
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Sales_ISP_excl_VAT_local
+		dataType: double
+		isHidden
+		lineageTag: 2587178a-e921-4190-9555-b310c69e6aee
+		summarizeBy: sum
+		sourceColumn: Sales_ISP_excl_VAT_local
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Sales_ISP_excl_VAT_euro
+		dataType: double
+		isHidden
+		lineageTag: ca6fd9f3-d031-49f1-a970-3327ad84712c
+		summarizeBy: sum
+		sourceColumn: Sales_ISP_excl_VAT_euro
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Sales_FISC_excl_VAT_local
+		dataType: double
+		isHidden
+		lineageTag: 980f4eab-d38f-4659-8fcb-d7593379ef55
+		summarizeBy: sum
+		sourceColumn: Sales_FISC_excl_VAT_local
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Sales_FISC_excl_VAT_euro
+		dataType: double
+		isHidden
+		lineageTag: 91b379ea-27da-435f-9cce-eee78c113f6f
+		summarizeBy: sum
+		sourceColumn: Sales_FISC_excl_VAT_euro
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Sold_quantity
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: e99210d4-b00b-4203-b4ae-73e35fbe2344
+		summarizeBy: sum
+		sourceColumn: Sold_quantity
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Sales = m
+		mode: import
+		source = ```
+				let
+				Source = GoogleBigQuery.Database([ConnectionTimeout = #duration(0, 0, 5, 0), CommandTimeout=#duration(1, 0, 0, 0), BillingProject=P_Billing_Project]){[Name=P_Project_Name]}[Data],
+				Query = Value.NativeQuery(Source,"
+				SELECT
+				Date,
+				ID_Store,
+				ID_Product,
+				ID_Affected_collection,
+				ID_Sales_channel,
+				ID_Comparable_flag,
+				GMV_excl_VAT_local,
+				GMV_excl_VAT_euro,
+				Sales_PP_excl_VAT_local,
+				Sales_PP_excl_VAT_euro,
+				Sales_ISP_excl_VAT_local,
+				Sales_ISP_excl_VAT_euro,
+				Sales_FISC_excl_VAT_local,
+				Sales_FISC_excl_VAT_euro,
+				Sold_quantity
+				FROM `expo_self_bi_sales.sales_refco` 
+				        where 
+				   date >=date('" & DateTime.ToText(RangeStart, [Format="yyyy-MM-dd"]) &"')
+				    and    date  < date('" & DateTime.ToText(RangeEnd, [Format="yyyy-MM-dd"]) &"')
+				    order by ID_Product
+				    ", null, [EnableFolding=true])
+				in
+				    Query
+				```
+
+	changedProperty = IsHidden
+
+	annotation PBI_IsMQueryFoldable = True
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

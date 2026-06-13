@@ -1,0 +1,40 @@
+table Sales
+	lineageTag: 22b5c85c-5fd7-4e30-880a-b3ccf9141f37
+
+	column Pays
+		dataType: string
+		lineageTag: 4e85bdf9-e54c-46b5-aee4-c2f0127d8e44
+		summarizeBy: none
+		sourceColumn: Pays
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Country code'
+		dataType: string
+		lineageTag: 9a574b6c-9c4a-42c7-b670-609c3d9c6ff8
+		summarizeBy: none
+		sourceColumn: Country code
+
+		annotation SummarizationSetBy = Automatic
+
+	column CA
+		dataType: int64
+		formatString: 0
+		lineageTag: 95b978be-a37a-4c37-b905-186a6eb672ec
+		summarizeBy: sum
+		sourceColumn: CA
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Sales = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WcitKzEtOVdJRcgsCEkYGSrE60UpOqTnpmYWlIGEnV5CwpVJsLAA=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Country = _t, #"Country code" = _t, ColuCAmn1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Country", type text}, {"Country code", type text}, {"ColuCAmn1", Int64.Type}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"Country", "Pays"}, {"ColuCAmn1", "CA"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_ResultType = Table
+

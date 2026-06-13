@@ -1,0 +1,76 @@
+relationship de1c1f73-613b-bdfc-1921-a88244099a78
+	fromColumn: Goal.Date
+	toColumn: Calendar.Date
+
+relationship 6099fee6-ea30-2bf3-e0cc-bb31651861a2
+	fromColumn: 'Tickets Traffic'.Date
+	toColumn: Calendar.Date
+
+relationship 57d85d42-b68a-e84d-d516-f3f85ef4826a
+	fromColumn: Product.ID_Class
+	toColumn: 'Product Hierarchy'.ID_Class
+
+relationship d7f1b13b-4410-8e4a-2f30-977f8063fd9b
+	fromColumn: Goal.ID_Store
+	toColumn: Store.ID_Store
+
+relationship 43f28a10-c6dc-828b-2f0a-45d479c81ad5
+	fromColumn: Goal.ID_Comparable_flag
+	toColumn: 'Comparable Flag'.ID_Comparable_flag
+
+relationship ff5590eb-e608-f6b8-a6fe-7ec794a85527
+	fromColumn: 'Tickets Traffic'.Id_Store
+	toColumn: Store.ID_Store
+
+relationship 04d2507c-e317-6ff9-e65c-af91f0911349
+	fromColumn: 'Tickets Traffic'.ID_Comparable_flag
+	toColumn: 'Comparable Flag'.ID_Comparable_flag
+
+relationship fbb21c9c-6bca-0a40-453c-c6be724ac798
+	fromColumn: Sales.Date
+	toColumn: Calendar.Date
+
+relationship dadf0c70-8a8e-8fc9-dccf-8c72390cf11a
+	fromColumn: Sales.ID_Sales_channel
+	toColumn: Channel.ID_Channel
+
+relationship cc08df26-8304-be3d-d4e4-59acb2af3e04
+	fromColumn: Sales.ID_Comparable_flag
+	toColumn: 'Comparable Flag'.ID_Comparable_flag
+
+relationship 11b5f4db-672b-7ad9-2800-9abcd4cdf8dc
+	fromColumn: Sales.ID_Affected_collection
+	toColumn: 'Affected Collection'.ID_Collection_aff
+
+relationship f75e17f6-ad9d-a5aa-3f56-5efe1e5962cf
+	fromColumn: Sales.ID_Product
+	toColumn: Product.ID_Product
+
+relationship 195bcc98-59f4-4517-86f5-3f91b6fb3fda
+	fromColumn: Sales.ID_Store
+	toColumn: Store.ID_Store
+
+relationship d8871dce-4d36-d89a-9db7-18f2d8a0e2b4
+	fromColumn: 'Sales Class Level'.ID_Store
+	toColumn: Store.ID_Store
+
+relationship af99576d-7f3b-bda1-61de-2df8e07474be
+	fromColumn: 'Sales Class Level'.Date
+	toColumn: Calendar.Date
+
+relationship fe44e711-3888-553f-2ea1-918b11f0c57f
+	fromColumn: 'Sales Class Level'.ID_Sales_channel
+	toColumn: Channel.ID_Channel
+
+relationship 1b72a3db-4a6b-bdad-2a6f-2b16a0cdea1c
+	fromColumn: 'Sales Class Level'.ID_Comparable_flag
+	toColumn: 'Comparable Flag'.ID_Comparable_flag
+
+relationship 0550c77c-42aa-666d-f7db-24d671181f3f
+	fromColumn: 'Sales Class Level'.ID_Affected_collection
+	toColumn: 'Affected Collection'.ID_Collection_aff
+
+relationship 949797c8-f046-91cc-a242-6ea25e6c3020
+	fromColumn: 'Sales Class Level'.ID_Class
+	toColumn: 'Product Hierarchy'.ID_Class
+

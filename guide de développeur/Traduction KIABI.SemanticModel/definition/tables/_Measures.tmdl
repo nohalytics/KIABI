@@ -1,0 +1,35 @@
+table _Measures
+	lineageTag: 80d27b0a-7f32-43f5-96b5-e07df2b202c1
+
+	measure Sales = SUM ( 'Internet Sales'[SalesAmount] )
+		formatString: #,0.00
+		lineageTag: 41fd6fbc-d3a3-4fae-aa39-48c10014028e
+
+	measure Culture = USERCULTURE()
+		lineageTag: 1299cf87-9e57-48ee-99c9-0627ea28fee8
+
+	measure 'End of month' = EOMONTH ( TODAY () , 0 )
+		formatString: Short Date
+		lineageTag: 49cd24c2-6b72-4793-81d9-8d8327cb0dd7
+
+	column _Measures
+		dataType: string
+		isHidden
+		lineageTag: d2e651bd-4e2f-4aa1-ac3e-e395022e7020
+		summarizeBy: none
+		sourceColumn: _Measures
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Measures-979f1bfa-b66f-4eda-b0a9-0dc64b3636b1 = m
+		mode: import
+		source =
+				let
+				    Source = ""
+				in
+				    Source
+
+	annotation PBI_ResultType = Text
+

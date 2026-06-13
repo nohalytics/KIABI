@@ -1,0 +1,28 @@
+expression RangeEnd = #datetime(2026, 5, 26, 0, 0, 0) meta [IsParameterQuery=true, Type="DateTime", IsParameterQueryRequired=true]
+	lineageTag: 09f77ca1-b092-40ff-9973-f7f24a706557
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = DateTime
+
+expression RangeStart = #datetime(2026, 5, 25, 0, 0, 0) meta [IsParameterQuery=true, Type="DateTime", IsParameterQueryRequired=true]
+	lineageTag: bf1a0ca6-c41e-4a0b-af29-f05fab61af6c
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = DateTime
+
+expression P_Billing_Project = "group-data-xretail-dev" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: e9655341-acca-4fcc-bf84-6f707c5a8b6d
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
+expression P_Project_Name = "group-data-xretail-dev" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 4b1c969d-8bb6-434a-b433-f39411da8b0f
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+

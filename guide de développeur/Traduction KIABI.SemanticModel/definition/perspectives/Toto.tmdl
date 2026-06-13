@@ -1,0 +1,10 @@
+perspective Toto
+
+	perspectiveTable _Measures
+
+		perspectiveMeasure Sales
+
+		perspectiveColumn _Measures
+
+	perspectiveTable Products
+

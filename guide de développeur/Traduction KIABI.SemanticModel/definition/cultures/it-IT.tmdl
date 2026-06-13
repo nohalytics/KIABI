@@ -1,0 +1,28 @@
+cultureInfo it-IT
+	translations
+		model Model
+			table Products
+				caption: Prodotti
+				column Color
+					caption: Colore
+			table _Measures
+				caption: _Misure
+				measure Sales
+					caption: Vendite
+					description: C'est La Somme De La Colonne Saleamount
+					displayFolder: 01. Vendite
+				measure Culture
+					caption: Cultura
+				measure 'End of month'
+					caption: Fine Mese
+			table 'Localized Labels'
+				caption: Etichette Localizzate
+				measure 'My Report Title'
+					caption: Titolo Del Mio Rapporto
+				measure 'My Button Caption'
+					caption: Didascalia Pulsante Personale
+				measure 'My Visual Title'
+					caption: Il Mio Titolo Visivo
+				measure 'This is the sales amount by the color attribute'
+					caption: Questo È L'importo Delle Vendite In Base All'attributo Colore [Colore]
+

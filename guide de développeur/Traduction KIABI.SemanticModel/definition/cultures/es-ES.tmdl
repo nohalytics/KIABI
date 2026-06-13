@@ -1,0 +1,28 @@
+cultureInfo es-ES
+	translations
+		model Model
+			table Products
+				caption: Productos
+				column Color
+					caption: Color
+			table _Measures
+				caption: _Medidas
+				measure Sales
+					caption: Ventas
+					description: C'est La Somme De La Colonne Saleamount
+					displayFolder: 01. Ventas
+				measure Culture
+					caption: Cultura
+				measure 'End of month'
+					caption: Fin De Mes
+			table 'Localized Labels'
+				caption: Etiquetas Localizadas
+				measure 'My Report Title'
+					caption: Título De Mi Informe
+				measure 'My Button Caption'
+					caption: Leyenda De Mi Botón
+				measure 'My Visual Title'
+					caption: Mi Título Visual
+				measure 'This is the sales amount by the color attribute'
+					caption: Este Es El Monto De Las Ventas Por El Atributo De Color
+

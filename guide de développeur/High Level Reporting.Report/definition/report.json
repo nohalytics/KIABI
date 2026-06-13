@@ -1,0 +1,113 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.3.0/schema.json",
+  "themeCollection": {
+    "baseTheme": {
+      "name": "CY26SU04",
+      "reportVersionAtImport": {
+        "visual": "2.8.0",
+        "report": "3.2.0",
+        "page": "2.3.1"
+      },
+      "type": "SharedResources"
+    },
+    "customTheme": {
+      "name": "Kiabi_Power_BI_Theme_2026_v1.510041549455552035.json",
+      "reportVersionAtImport": {
+        "visual": "2.8.0",
+        "report": "3.2.0",
+        "page": "2.3.1"
+      },
+      "type": "RegisteredResources"
+    }
+  },
+  "objects": {
+    "section": [
+      {
+        "properties": {
+          "verticalAlignment": {
+            "expr": {
+              "Literal": {
+                "Value": "'Top'"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "expanded": {
+            "expr": {
+              "Literal": {
+                "Value": "true"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "resourcePackages": [
+    {
+      "name": "SharedResources",
+      "type": "SharedResources",
+      "items": [
+        {
+          "name": "CY26SU04",
+          "path": "BaseThemes/CY26SU04.json",
+          "type": "BaseTheme"
+        }
+      ]
+    },
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "background-no-filters_1240x94023999749128497117.svg",
+          "path": "background-no-filters_1240x94023999749128497117.svg",
+          "type": "Image"
+        },
+        {
+          "name": "background-no-filters_1240x9406459341845320968.svg",
+          "path": "background-no-filters_1240x9406459341845320968.svg",
+          "type": "Image"
+        },
+        {
+          "name": "canal2427087338951931.png",
+          "path": "canal2427087338951931.png",
+          "type": "Image"
+        },
+        {
+          "name": "Electronics-213854804959971755.png",
+          "path": "Electronics-213854804959971755.png",
+          "type": "Image"
+        },
+        {
+          "name": "Kiabi_Power_BI_Theme_2026_v1.510041549455552035.json",
+          "path": "Kiabi_Power_BI_Theme_2026_v1.510041549455552035.json",
+          "type": "Image"
+        },
+        {
+          "name": "pays4852703250510818.png",
+          "path": "pays4852703250510818.png",
+          "type": "Image"
+        },
+        {
+          "name": "T-shirt011593673346577904.png",
+          "path": "T-shirt011593673346577904.png",
+          "type": "Image"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "useStylableVisualContainerHeader": true,
+    "exportDataMode": "AllowSummarized",
+    "defaultDrillFilterOtherVisuals": true,
+    "allowChangeFilterTypes": true,
+    "useEnhancedTooltips": true,
+    "useDefaultAggregateDisplayName": true
+  }
+}
