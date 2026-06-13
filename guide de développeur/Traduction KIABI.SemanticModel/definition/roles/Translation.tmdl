@@ -1,7 +1,0 @@
-role Translation
-	modelPermission: read
-
-	tablePermission Language = [Culture] ==USERCULTURE()
-
-	annotation PBI_Id = ecc4e94e417749659e864244b0b27604
-
