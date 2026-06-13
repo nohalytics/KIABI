@@ -1,0 +1,1239 @@
+table _KPI
+	lineageTag: 545d032b-1363-41e0-91ff-65a37f780908
+
+	measure _Sales_level = ```
+			not ISFILTERED('Product') 
+			```
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		isHidden
+		displayFolder: 00.Construct
+		lineageTag: 2db9bff2-b1c4-4daa-b9e3-da553bbae361
+
+		changedProperty = IsHidden
+
+	measure 'GMV excl. VAT' =
+			
+			IF (
+			    [_IsLocal],
+			    SWITCH (
+			        TRUE (),
+			        [_Sales_level], SUM ( 'Sales Class Level'[GMV_excl_VAT_local] ),
+			        SUM ( Sales[GMV_excl_VAT_local] )
+			    ),
+			    SWITCH (
+			        TRUE (),
+			        [_Sales_level], SUM ( 'Sales Class Level'[GMV_excl_VAT_euro] ),
+			        SUM ( Sales[GMV_excl_VAT_euro] )
+			    )
+			)
+		formatString: #,0.0
+		displayFolder: 01.Sales\Y
+		lineageTag: 2e4b1dcd-ef9d-4d04-bae1-9b72412341c8
+
+	measure 'Sales ISP excl. VAT' =
+			
+			IF (
+			    [_IsLocal],
+			    SWITCH (
+			        TRUE (),
+			        [_Sales_level], SUM ( 'Sales Class Level'[Sales_ISP_excl_VAT_local] ),
+			        SUM ( Sales[Sales_ISP_excl_VAT_local] )
+			    ),
+			    SWITCH (
+			        TRUE (),
+			        [_Sales_level], SUM ( 'Sales Class Level'[Sales_ISP_excl_VAT_euro] ),
+			        SUM ( Sales[Sales_ISP_excl_VAT_euro] )
+			    )
+			)
+		formatString: #,0.0
+		displayFolder: 01.Sales\Y
+		lineageTag: 83b80ebc-6e92-44a8-b574-942484649bea
+
+	measure 'Sales PP excl. VAT' = ```
+			IF (
+			    [_IsLocal],
+			    SWITCH (
+			        TRUE (),
+			        [_Sales_level], SUM ( 'Sales Class Level'[Sales_PP_excl_VAT_local] ),
+			        SUM ( Sales[Sales_PP_excl_VAT_local] )
+			    ),
+			    SWITCH (
+			        TRUE (),
+			        [_Sales_level], SUM ( 'Sales Class Level'[Sales_PP_excl_VAT_euro] ),
+			        SUM ( Sales[Sales_PP_excl_VAT_euro] )
+			    )
+			)
+			
+			```
+		formatString: #,0.0
+		displayFolder: 01.Sales\Y
+		lineageTag: d1d26db9-989c-48a5-9572-0e57933e9bd0
+
+	measure 'Sales FISC excl. VAT' = ```
+			
+			IF (
+			    [_IsLocal],
+			    SWITCH (
+			        TRUE (),
+			        [_Sales_level], SUM ( 'Sales Class Level'[Sales_FISC_excl_VAT_local] ),
+			        SUM ( Sales[Sales_FISC_excl_VAT_local] )
+			    ),
+			    SWITCH (
+			        TRUE (),
+			        [_Sales_level], SUM ( 'Sales Class Level'[Sales_FISC_excl_VAT_euro] ),
+			        SUM ( Sales[Sales_FISC_excl_VAT_euro] )
+			    )
+			)
+			
+			```
+		formatString: #,0.0
+		displayFolder: 01.Sales\Y
+		lineageTag: 0d246570-9245-4732-8df8-2421008a61bc
+
+	measure 'Sales quantities' = ```
+			SWITCH (
+			    TRUE (),
+			   [_Sales_level], SUM ( 'Sales Class Level'[Sold_quantity]),
+			    SUM ( Sales[Sold_quantity]
+			)
+			)
+			
+			```
+		formatString: #,0
+		displayFolder: 01.Sales\Y
+		lineageTag: d8245a57-3a90-4bb8-b412-fc67978794e7
+
+	measure 'Sales margin value' = [GMV excl. VAT] - [Sales PP excl. VAT]
+		formatString: #,0.0
+		displayFolder: 01.Sales\Y
+		lineageTag: 142ddaa8-37ca-45d5-8823-66985d01d04b
+
+	measure '_Sold quantities Y-1 (d)' =
+			
+			VAR ComparableStoresClass =
+			    CALCULATETABLE ( VALUES ( 'Sales Class Level'[Id_Store] ) )
+			VAR ComparableStoresProduct =
+			    CALCULATETABLE ( VALUES ( 'Sales'[Id_Store] ) )
+			VAR MaxDate =
+			    MAX ( 'Calendar'[Date] )
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        [_Sales_level],
+			            IF (
+			                ISFILTERED ( 'Comparable Flag' ),
+			                CALCULATE (
+			                    [Sales quantities],
+			                    TREATAS ( ComparableStoresClass, 'Sales Class Level'[ID_Store] ),
+			                    SAMEPERIODLASTYEAR ( 'Calendar'[Date] ),
+			                    'Calendar'[Date] <= EDATE ( MaxDate, -12 ),
+			                    REMOVEFILTERS ( 'Comparable Flag' )
+			                ),
+			                CALCULATE (
+			                    [Sales quantities],
+			                    SAMEPERIODLASTYEAR ( 'Calendar'[Date] ),
+			                    'Calendar'[Date] <= EDATE ( MaxDate, -12 )
+			                )
+			            ),
+			        IF (
+			            ISFILTERED ( 'Comparable Flag' ),
+			            CALCULATE (
+			                [Sales quantities],
+			                TREATAS ( ComparableStoresProduct, 'Sales'[ID_Store] ),
+			                SAMEPERIODLASTYEAR ( 'Calendar'[Date] ),
+			                'Calendar'[Date] <= EDATE ( MaxDate, -12 ),
+			                REMOVEFILTERS ( 'Comparable Flag' )
+			            ),
+			            CALCULATE (
+			                [Sales quantities],
+			                SAMEPERIODLASTYEAR ( 'Calendar'[Date] ),
+			                'Calendar'[Date] <= EDATE ( MaxDate, -12 )
+			            )
+			        )
+			    )
+		formatString: #,0
+		isHidden
+		displayFolder: 01.Sales\Y-1\date to date
+		lineageTag: c48f4bd8-81f3-4086-af6a-46a6ab90577e
+
+	measure '_Sales Margin Value Y-1 (d)' =
+			
+			VAR ComparableStoresClass =
+			    CALCULATETABLE ( VALUES ( 'Sales Class Level'[Id_Store] ) )
+			VAR ComparableStoresProduct =
+			    CALCULATETABLE ( VALUES ( 'Sales'[Id_Store] ) )
+			VAR MaxDate =
+			    MAX ( 'Calendar'[Date] )
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        [_Sales_level],
+			            IF (
+			                ISFILTERED ( 'Comparable Flag' ),
+			                CALCULATE (
+			                    [Sales margin value],
+			                    TREATAS ( ComparableStoresClass, 'Sales Class Level'[ID_Store] ),
+			                    SAMEPERIODLASTYEAR ( 'Calendar'[Date] ),
+			                    'Calendar'[Date] <= EDATE ( MaxDate, -12 ),
+			                    REMOVEFILTERS ( 'Comparable Flag' )
+			                ),
+			                CALCULATE (
+			                    [Sales margin value],
+			                    SAMEPERIODLASTYEAR ( 'Calendar'[Date] ),
+			                    'Calendar'[Date] <= EDATE ( MaxDate, -12 )
+			                )
+			            ),
+			        IF (
+			            ISFILTERED ( 'Comparable Flag' ),
+			            CALCULATE (
+			                [Sales margin value],
+			                TREATAS ( ComparableStoresProduct, 'Sales'[ID_Store] ),
+			                SAMEPERIODLASTYEAR ( 'Calendar'[Date] ),
+			                'Calendar'[Date] <= EDATE ( MaxDate, -12 ),
+			                REMOVEFILTERS ( 'Comparable Flag' )
+			            ),
+			            CALCULATE (
+			                [Sales margin value],
+			                SAMEPERIODLASTYEAR ( 'Calendar'[Date] ),
+			                'Calendar'[Date] <= EDATE ( MaxDate, -12 )
+			            )
+			        )
+			    )
+		formatString: #,0.00
+		isHidden
+		displayFolder: 01.Sales\Y-1\date to date
+		lineageTag: dc8aa20d-0d32-4f7a-a0cc-dac774a1c7f0
+
+	measure '_Sales FISC excl. VAT Y-1 (d)' =
+			
+			VAR ComparableStoresClass =
+			    CALCULATETABLE ( VALUES ( 'Sales Class Level'[Id_Store] ) )
+			VAR ComparableStoresProduct =
+			    CALCULATETABLE ( VALUES ( 'Sales'[Id_Store] ) )
+			VAR MaxDate =
+			    MAX ( 'Calendar'[Date] )
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        [_Sales_level],
+			            IF (
+			                ISFILTERED ( 'Comparable Flag' ),
+			                CALCULATE (
+			                    [Sales FISC excl. VAT],
+			                    TREATAS ( ComparableStoresClass, 'Sales Class Level'[ID_Store] ),
+			                    SAMEPERIODLASTYEAR ( 'Calendar'[Date] ),
+			                    'Calendar'[Date] <= EDATE ( MaxDate, -12 ),
+			                    REMOVEFILTERS ( 'Comparable Flag' )
+			                ),
+			                CALCULATE (
+			                    [Sales FISC excl. VAT],
+			                    SAMEPERIODLASTYEAR ( 'Calendar'[Date] ),
+			                    'Calendar'[Date] <= EDATE ( MaxDate, -12 )
+			                )
+			            ),
+			        IF (
+			            ISFILTERED ( 'Comparable Flag' ),
+			            CALCULATE (
+			                [Sales FISC excl. VAT],
+			                TREATAS ( ComparableStoresProduct, 'Sales'[ID_Store] ),
+			                SAMEPERIODLASTYEAR ( 'Calendar'[Date] ),
+			                'Calendar'[Date] <= EDATE ( MaxDate, -12 ),
+			                REMOVEFILTERS ( 'Comparable Flag' )
+			            ),
+			            CALCULATE (
+			                [Sales FISC excl. VAT],
+			                SAMEPERIODLASTYEAR ( 'Calendar'[Date] ),
+			                'Calendar'[Date] <= EDATE ( MaxDate, -12 )
+			            )
+			        )
+			    )
+		isHidden
+		displayFolder: 01.Sales\Y-1\date to date
+		lineageTag: 229a9ab1-8199-4883-9467-898627ce7824
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '_Sales PP excl. VAT Y-1 (d)' =
+			
+			VAR ComparableStoresClass =
+			    CALCULATETABLE ( VALUES ( 'Sales Class Level'[Id_Store] ) )
+			VAR ComparableStoresProduct =
+			    CALCULATETABLE ( VALUES ( 'Sales'[Id_Store] ) )
+			VAR MaxDate =
+			    MAX ( 'Calendar'[Date] )
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        [_Sales_level],
+			            IF (
+			                ISFILTERED ( 'Comparable Flag' ),
+			                CALCULATE (
+			                    [Sales PP excl. VAT],
+			                    TREATAS ( ComparableStoresClass, 'Sales Class Level'[ID_Store] ),
+			                    SAMEPERIODLASTYEAR ( 'Calendar'[Date] ),
+			                    'Calendar'[Date] <= EDATE ( MaxDate, -12 ),
+			                    REMOVEFILTERS ( 'Comparable Flag' )
+			                ),
+			                CALCULATE (
+			                    [Sales PP excl. VAT],
+			                    SAMEPERIODLASTYEAR ( 'Calendar'[Date] ),
+			                    'Calendar'[Date] <= EDATE ( MaxDate, -12 )
+			                )
+			            ),
+			        IF (
+			            ISFILTERED ( 'Comparable Flag' ),
+			            CALCULATE (
+			                [Sales PP excl. VAT],
+			                TREATAS ( ComparableStoresProduct, 'Sales'[ID_Store] ),
+			                SAMEPERIODLASTYEAR ( 'Calendar'[Date] ),
+			                'Calendar'[Date] <= EDATE ( MaxDate, -12 ),
+			                REMOVEFILTERS ( 'Comparable Flag' )
+			            ),
+			            CALCULATE (
+			                [Sales PP excl. VAT],
+			                SAMEPERIODLASTYEAR ( 'Calendar'[Date] ),
+			                'Calendar'[Date] <= EDATE ( MaxDate, -12 )
+			            )
+			        )
+			    )
+		formatString: #,0.00
+		isHidden
+		displayFolder: 01.Sales\Y-1\date to date
+		lineageTag: 2f085ed8-8236-4f45-abbe-12b208a5b028
+
+	measure '_GMV excl. VAT Y-1 Y-1 (d)' =
+			
+			VAR ComparableStoresClass =
+			    CALCULATETABLE ( VALUES ( 'Sales Class Level'[Id_Store] ) )
+			VAR ComparableStoresProduct =
+			    CALCULATETABLE ( VALUES ( 'Sales'[Id_Store] ) )
+			VAR MaxDate =
+			    MAX ( 'Calendar'[Date] )
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        [_Sales_level],
+			            IF (
+			                ISFILTERED ( 'Comparable Flag' ),
+			                CALCULATE (
+			                    [GMV excl. VAT],
+			                    TREATAS ( ComparableStoresClass, 'Sales Class Level'[ID_Store] ),
+			                    SAMEPERIODLASTYEAR ( 'Calendar'[Date] ),
+			                    'Calendar'[Date] <= EDATE ( MaxDate, -12 ),
+			                    REMOVEFILTERS ( 'Comparable Flag' )
+			                ),
+			                CALCULATE (
+			                    [GMV excl. VAT],
+			                    SAMEPERIODLASTYEAR ( 'Calendar'[Date] ),
+			                    'Calendar'[Date] <= EDATE ( MaxDate, -12 )
+			                )
+			            ),
+			        IF (
+			            ISFILTERED ( 'Comparable Flag' ),
+			            CALCULATE (
+			                [GMV excl. VAT],
+			                TREATAS ( ComparableStoresProduct, 'Sales'[ID_Store] ),
+			                SAMEPERIODLASTYEAR ( 'Calendar'[Date] ),
+			                'Calendar'[Date] <= EDATE ( MaxDate, -12 ),
+			                REMOVEFILTERS ( 'Comparable Flag' )
+			            ),
+			            (
+			                CALCULATE (
+			                    [GMV excl. VAT],
+			                    SAMEPERIODLASTYEAR ( 'Calendar'[Date] ),
+			                    'Calendar'[Date] <= EDATE ( MaxDate, -12 )
+			                )
+			            )
+			        )
+			    )
+		formatString: 0.00
+		isHidden
+		displayFolder: 01.Sales\Y-1\date to date
+		lineageTag: a69e74ce-120a-44c4-b93e-ec2f929608ac
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '_Sales ISP excl. VAT Y-1 (d)' =
+			
+			VAR ComparableStoresClass =
+			    CALCULATETABLE ( VALUES ( 'Sales Class Level'[Id_Store] ) )
+			VAR ComparableStoresProduct =
+			    CALCULATETABLE ( VALUES ( 'Sales'[Id_Store] ) )
+			VAR MaxDate =
+			    MAX ( 'Calendar'[Date] )
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        [_Sales_level],
+			            IF (
+			                ISFILTERED ( 'Comparable Flag' ),
+			                CALCULATE (
+			                    [Sales ISP excl. VAT],
+			                    TREATAS ( ComparableStoresClass, 'Sales Class Level'[ID_Store] ),
+			                    SAMEPERIODLASTYEAR ( 'Calendar'[Date] ),
+			                    'Calendar'[Date] <= EDATE ( MaxDate, -12 ),
+			                    REMOVEFILTERS ( 'Comparable Flag' )
+			                ),
+			                CALCULATE (
+			                    [Sales ISP excl. VAT],
+			                    SAMEPERIODLASTYEAR ( 'Calendar'[Date] ),
+			                    'Calendar'[Date] <= EDATE ( MaxDate, -12 )
+			                )
+			            ),
+			        IF (
+			            ISFILTERED ( 'Comparable Flag' ),
+			            CALCULATE (
+			                [Sales ISP excl. VAT],
+			                TREATAS ( ComparableStoresProduct, 'Sales'[ID_Store] ),
+			                SAMEPERIODLASTYEAR ( 'Calendar'[Date] ),
+			                'Calendar'[Date] <= EDATE ( MaxDate, -12 ),
+			                REMOVEFILTERS ( 'Comparable Flag' )
+			            ),
+			            CALCULATE (
+			                [Sales ISP excl. VAT],
+			                SAMEPERIODLASTYEAR ( 'Calendar'[Date] ),
+			                'Calendar'[Date] <= EDATE ( MaxDate, -12 )
+			            )
+			        )
+			    )
+		formatString: #,0.00
+		isHidden
+		displayFolder: 01.Sales\Y-1\date to date
+		lineageTag: 609ad32a-9adc-4702-bb0a-37c543f85216
+
+	measure '_GMV excl. VAT Y-1 (like)' =
+			
+			VAR __LastYearComparable =
+			    VALUES ( 'Calendar'[date_comparable_day_y1] )
+			VAR PerimeterClass =
+			    CALCULATETABLE ( VALUES ( 'Sales Class Level'[ID_Store] ) )
+			VAR PerimeterProduct =
+			    CALCULATETABLE ( VALUES ( 'Sales'[ID_Store] ) )
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        [_Sales_level],
+			            IF (
+			                ISFILTERED ( 'Comparable Flag' ),
+			                CALCULATE (
+			                    [GMV excl. VAT],
+			                    TREATAS ( __LastYearComparable, 'Calendar'[Date] ),
+			                    TREATAS ( PerimeterClass, 'Sales Class Level'[ID_Store] ),
+			                    REMOVEFILTERS ( 'Comparable Flag' )
+			                ),
+			                CALCULATE (
+			                    [GMV excl. VAT],
+			                    TREATAS ( __LastYearComparable, 'Calendar'[Date] )
+			                )
+			            ),
+			        IF (
+			            ISFILTERED ( 'Comparable Flag' ),
+			            CALCULATE (
+			                [GMV excl. VAT],
+			                TREATAS ( __LastYearComparable, 'Calendar'[Date] ),
+			                TREATAS ( PerimeterProduct, 'Sales'[ID_Store] ),
+			                REMOVEFILTERS ( 'Comparable Flag' )
+			            ),
+			            CALCULATE (
+			                [GMV excl. VAT],
+			                TREATAS ( __LastYearComparable, 'Calendar'[Date] )
+			            )
+			        )
+			    )
+		formatString: #,0.00
+		isHidden
+		displayFolder: 01.Sales\Y-1\like for like
+		lineageTag: c880cdaf-b0f8-469e-92fb-6057abbafb2d
+
+	measure '_Sales ISP excl. VAT Y-1 (like)' =
+			
+			VAR __LastYearComparable =
+			    VALUES ( 'Calendar'[date_comparable_day_y1] )
+			VAR PerimeterClass =
+			    CALCULATETABLE ( VALUES ( 'Sales Class Level'[ID_Store] ) )
+			VAR PerimeterProduct =
+			    CALCULATETABLE ( VALUES ( 'Sales'[ID_Store] ) )
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        [_Sales_level],
+			            IF (
+			                ISFILTERED ( 'Comparable Flag' ),
+			                CALCULATE (
+			                    [Sales ISP excl. VAT],
+			                    TREATAS ( __LastYearComparable, 'Calendar'[Date] ),
+			                    TREATAS ( PerimeterClass, 'Sales Class Level'[ID_Store] ),
+			                    REMOVEFILTERS ( 'Comparable Flag' )
+			                ),
+			                CALCULATE (
+			                    [Sales ISP excl. VAT],
+			                    TREATAS ( __LastYearComparable, 'Calendar'[Date] )
+			                )
+			            ),
+			        IF (
+			            ISFILTERED ( 'Comparable Flag' ),
+			            CALCULATE (
+			                [Sales ISP excl. VAT],
+			                TREATAS ( __LastYearComparable, 'Calendar'[Date] ),
+			                TREATAS ( PerimeterProduct, 'Sales'[ID_Store] ),
+			                REMOVEFILTERS ( 'Comparable Flag' )
+			            ),
+			            CALCULATE (
+			                [Sales ISP excl. VAT],
+			                TREATAS ( __LastYearComparable, 'Calendar'[Date] )
+			            )
+			        )
+			    )
+		formatString: #,0.00
+		isHidden
+		displayFolder: 01.Sales\Y-1\like for like
+		lineageTag: 01cc738d-8b1e-4f6a-8dc1-5a47b4ec1919
+
+	measure '_Sales PP excl. VAT Y-1 (like)' =
+			
+			VAR __LastYearComparable =
+			    VALUES ( 'Calendar'[date_comparable_day_y1] )
+			VAR PerimeterClass =
+			    CALCULATETABLE ( VALUES ( 'Sales Class Level'[ID_Store] ) )
+			VAR PerimeterProduct =
+			    CALCULATETABLE ( VALUES ( 'Sales'[ID_Store] ) )
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        [_Sales_level],
+			            IF (
+			                ISFILTERED ( 'Comparable Flag' ),
+			                CALCULATE (
+			                    [Sales PP excl. VAT],
+			                    TREATAS ( __LastYearComparable, 'Calendar'[Date] ),
+			                    TREATAS ( PerimeterClass, 'Sales Class Level'[ID_Store] ),
+			                    REMOVEFILTERS ( 'Comparable Flag' )
+			                ),
+			                CALCULATE (
+			                    [Sales PP excl. VAT],
+			                    TREATAS ( __LastYearComparable, 'Calendar'[Date] )
+			                )
+			            ),
+			        IF (
+			            ISFILTERED ( 'Comparable Flag' ),
+			            CALCULATE (
+			                [Sales PP excl. VAT],
+			                TREATAS ( __LastYearComparable, 'Calendar'[Date] ),
+			                TREATAS ( PerimeterProduct, 'Sales'[ID_Store] ),
+			                REMOVEFILTERS ( 'Comparable Flag' )
+			            ),
+			            CALCULATE (
+			                [Sales PP excl. VAT],
+			                TREATAS ( __LastYearComparable, 'Calendar'[Date] )
+			            )
+			        )
+			    )
+		isHidden
+		displayFolder: 01.Sales\Y-1\like for like
+		lineageTag: 574a7ad3-8e0d-4e27-bf2f-edd15ab9f68d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '_Sales FISC excl. VAT Y-1 (like)' =
+			
+			VAR __LastYearComparable =
+			    VALUES ( 'Calendar'[date_comparable_day_y1] )
+			VAR PerimeterClass =
+			    CALCULATETABLE ( VALUES ( 'Sales Class Level'[ID_Store] ) )
+			VAR PerimeterProduct =
+			    CALCULATETABLE ( VALUES ( 'Sales'[ID_Store] ) )
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        [_Sales_level],
+			            IF (
+			                ISFILTERED ( 'Comparable Flag' ),
+			                CALCULATE (
+			                    [Sales FISC excl. VAT],
+			                    TREATAS ( __LastYearComparable, 'Calendar'[Date] ),
+			                    TREATAS ( PerimeterClass, 'Sales Class Level'[ID_Store] ),
+			                    REMOVEFILTERS ( 'Comparable Flag' )
+			                ),
+			                CALCULATE (
+			                    [Sales FISC excl. VAT],
+			                    TREATAS ( __LastYearComparable, 'Calendar'[Date] )
+			                )
+			            ),
+			        IF (
+			            ISFILTERED ( 'Comparable Flag' ),
+			            CALCULATE (
+			                [Sales FISC excl. VAT],
+			                TREATAS ( __LastYearComparable, 'Calendar'[Date] ),
+			                TREATAS ( PerimeterProduct, 'Sales'[ID_Store] ),
+			                REMOVEFILTERS ( 'Comparable Flag' )
+			            ),
+			            CALCULATE (
+			                [Sales FISC excl. VAT],
+			                TREATAS ( __LastYearComparable, 'Calendar'[Date] )
+			            )
+			        )
+			    )
+		formatString: #,0.00
+		isHidden
+		displayFolder: 01.Sales\Y-1\like for like
+		lineageTag: 2a2b7ca5-a0c5-4fe0-b83d-831f621e38fc
+
+	measure '_Sold quantities Y-1 (like)' =
+			
+			VAR __LastYearComparable =
+			    VALUES ( 'Calendar'[date_comparable_day_y1] )
+			VAR PerimeterClass =
+			    CALCULATETABLE ( VALUES ( 'Sales Class Level'[ID_Store] ) )
+			VAR PerimeterProduct =
+			    CALCULATETABLE ( VALUES ( 'Sales'[ID_Store] ) )
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        [_Sales_level],
+			            IF (
+			                ISFILTERED ( 'Comparable Flag' ),
+			                CALCULATE (
+			                    [Sales quantities],
+			                    TREATAS ( __LastYearComparable, 'Calendar'[Date] ),
+			                    TREATAS ( PerimeterClass, 'Sales Class Level'[ID_Store] ),
+			                    REMOVEFILTERS ( 'Comparable Flag' )
+			                ),
+			                CALCULATE (
+			                    [Sales quantities],
+			                    TREATAS ( __LastYearComparable, 'Calendar'[Date] )
+			                )
+			            ),
+			        IF (
+			            ISFILTERED ( 'Comparable Flag' ),
+			            CALCULATE (
+			                [Sales quantities],
+			                TREATAS ( __LastYearComparable, 'Calendar'[Date] ),
+			                TREATAS ( PerimeterProduct, 'Sales'[ID_Store] ),
+			                REMOVEFILTERS ( 'Comparable Flag' )
+			            ),
+			            CALCULATE (
+			                [Sales quantities],
+			                TREATAS ( __LastYearComparable, 'Calendar'[Date] )
+			            )
+			        )
+			    )
+		formatString: #,0
+		isHidden
+		displayFolder: 01.Sales\Y-1\like for like
+		lineageTag: b8ee5cd5-4026-48db-a43c-0bd8ed626ae0
+
+	measure '_Sales Margin Value Y-1 (like)' =
+			
+			VAR __LastYearComparable =
+			    VALUES ( 'Calendar'[date_comparable_day_y1] )
+			VAR PerimeterClass =
+			    CALCULATETABLE ( VALUES ( 'Sales Class Level'[ID_Store] ) )
+			VAR PerimeterProduct =
+			    CALCULATETABLE ( VALUES ( 'Sales'[ID_Store] ) )
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        [_Sales_level],
+			            IF (
+			                ISFILTERED ( 'Comparable Flag' ),
+			                CALCULATE (
+			                    [Sales margin value],
+			                    TREATAS ( __LastYearComparable, 'Calendar'[Date] ),
+			                    TREATAS ( PerimeterClass, 'Sales Class Level'[ID_Store] ),
+			                    REMOVEFILTERS ( 'Comparable Flag' )
+			                ),
+			                CALCULATE (
+			                    [Sales margin value],
+			                    TREATAS ( __LastYearComparable, 'Calendar'[Date] )
+			                )
+			            ),
+			        IF (
+			            ISFILTERED ( 'Comparable Flag' ),
+			            CALCULATE (
+			                [Sales margin value],
+			                TREATAS ( __LastYearComparable, 'Calendar'[Date] ),
+			                TREATAS ( PerimeterProduct, 'Sales'[ID_Store] ),
+			                REMOVEFILTERS ( 'Comparable Flag' )
+			            ),
+			            CALCULATE (
+			                [Sales margin value],
+			                TREATAS ( __LastYearComparable, 'Calendar'[Date] )
+			            )
+			        )
+			    )
+		formatString: #,0.00
+		isHidden
+		displayFolder: 01.Sales\Y-1\like for like
+		lineageTag: 0573c527-e19b-45ac-a001-12411dc27667
+
+	measure 'Number of tickets' = sum('Tickets Traffic'[Transactions])
+		formatString: #,0
+		displayFolder: 04.Number of tickets & traffic\Y
+		lineageTag: 623e3bcb-c7f6-4336-a7a5-9726d6285393
+
+		changedProperty = IsHidden
+
+	measure Traffic = sum('Tickets Traffic'[Visitors])
+		formatString: #,0
+		displayFolder: 04.Number of tickets & traffic\Y
+		lineageTag: ade61dfe-f091-43b1-928d-312373759f5b
+
+		changedProperty = IsHidden
+
+	measure 'Sales quantities Y-1' =
+			SWITCH (
+			    TRUE (),
+			      ISFILTERED ( 'Calendar'[Date] ) || ISFILTERED ( 'Calendar'[YearWeek] )
+			        || ISFILTERED ( 'Calendar'[Year 445] )
+			        || ISFILTERED ( 'Calendar'[YearPeriod 445] )
+			        || ISFILTERED ( 'Calendar'[YearMonth 445] )
+			        || ISFILTERED ( 'Calendar'[YearQuarter 445] )
+			        || ISFILTERED ( 'Calendar'[YearSemester 445] ),
+			    [_Sold quantities Y-1 (like)], [_Sold quantities Y-1 (d)]
+			)
+		formatString: #,0
+		displayFolder: 01.Sales\Y-1
+		lineageTag: 7ac8d600-6ec0-403d-92b9-527d91ddf458
+
+	measure 'Sales margin value Y-1' =
+			SWITCH (
+			    TRUE (),
+			       ISFILTERED ( 'Calendar'[Date] ) || ISFILTERED ( 'Calendar'[YearWeek] )
+			        || ISFILTERED ( 'Calendar'[Year 445] )
+			        || ISFILTERED ( 'Calendar'[YearPeriod 445] )
+			        || ISFILTERED ( 'Calendar'[YearMonth 445] )
+			        || ISFILTERED ( 'Calendar'[YearQuarter 445] )
+			        || ISFILTERED ( 'Calendar'[YearSemester 445] ),
+			    [_Sales Margin Value Y-1 (like)], [_Sales Margin Value Y-1 (d)]
+			)
+		formatString: #,0.0
+		displayFolder: 01.Sales\Y-1
+		lineageTag: d831a62a-61a1-44e2-aad7-ef018307399e
+
+	measure 'Sales FISC excl. VAT Y-1' =
+			SWITCH (
+			    TRUE (),
+			    ISFILTERED ( 'Calendar'[Date] ) || ISFILTERED ( 'Calendar'[YearWeek] )
+			        || ISFILTERED ( 'Calendar'[Year 445] )
+			        || ISFILTERED ( 'Calendar'[YearPeriod 445] )
+			        || ISFILTERED ( 'Calendar'[YearMonth 445] )
+			        || ISFILTERED ( 'Calendar'[YearQuarter 445] )
+			        || ISFILTERED ( 'Calendar'[YearSemester 445] ), [_Sales FISC excl. VAT Y-1 (like)],
+			    [_Sales FISC excl. VAT Y-1 (d)]
+			)
+		formatString: #,0.0
+		displayFolder: 01.Sales\Y-1
+		lineageTag: 7d38a229-ca26-44ad-9dfd-f47f6d7b0418
+
+	measure 'Sales PP excl. VAT Y-1' = ```
+			SWITCH (
+			    TRUE (),
+			      ISFILTERED ( 'Calendar'[Date] ) || ISFILTERED ( 'Calendar'[YearWeek] )
+			        || ISFILTERED ( 'Calendar'[Year 445] )
+			        || ISFILTERED ( 'Calendar'[YearPeriod 445] )
+			        || ISFILTERED ( 'Calendar'[YearMonth 445] )
+			        || ISFILTERED ( 'Calendar'[YearQuarter 445] )
+			        || ISFILTERED ( 'Calendar'[YearSemester 445] ),  [_Sales PP excl. VAT Y-1 (like)],[_Sales PP excl. VAT Y-1 (d)]
+			   
+			)
+			```
+		formatString: #,0.0
+		displayFolder: 01.Sales\Y-1
+		lineageTag: 77be73f2-a88b-402b-897a-eb10da6c04e7
+
+	measure 'GMV excl. VAT Y-1' = ```
+			SWITCH (
+			    TRUE (),
+			       ISFILTERED ( 'Calendar'[Date] ) || ISFILTERED ( 'Calendar'[YearWeek] )
+			        || ISFILTERED ( 'Calendar'[Year 445] )
+			        || ISFILTERED ( 'Calendar'[YearPeriod 445] )
+			        || ISFILTERED ( 'Calendar'[YearMonth 445] )
+			        || ISFILTERED ( 'Calendar'[YearQuarter 445] )
+			        || ISFILTERED ( 'Calendar'[YearSemester 445] ), [_GMV excl. VAT Y-1 (like)],[_GMV excl. VAT Y-1 Y-1 (d)]
+			    
+			)
+			```
+		formatString: #,0.0
+		displayFolder: 01.Sales\Y-1
+		lineageTag: 1c91b788-1945-49c2-a5f6-dbaa817e3814
+
+	measure 'Sales ISP excl. VAT Y-1' = ```
+			SWITCH (
+			    TRUE (),
+			      ISFILTERED ( 'Calendar'[Date] ) || ISFILTERED ( 'Calendar'[YearWeek] )
+			        || ISFILTERED ( 'Calendar'[Year 445] )
+			        || ISFILTERED ( 'Calendar'[YearPeriod 445] )
+			        || ISFILTERED ( 'Calendar'[YearMonth 445] )
+			        || ISFILTERED ( 'Calendar'[YearQuarter 445] )
+			        || ISFILTERED ( 'Calendar'[YearSemester 445] ), [_Sales ISP excl. VAT Y-1 (like)], [_Sales ISP excl. VAT Y-1 (d)]
+			   
+			)
+			```
+		formatString: #,0.0
+		displayFolder: 01.Sales\Y-1
+		lineageTag: 0dbff34b-0f12-4a59-87dc-a00764f651b5
+
+	measure 'MKD rate excl. VAT' = DIVIDE([MKD value excl. VAT], [Sales ISP excl. VAT])
+		formatString: #,0.0%;-#,0.0%;#,0.0%
+		displayFolder: 01.Sales\Y
+		lineageTag: 4b93e8f4-632f-43e5-a4c6-110b0817c3bf
+
+	measure 'MKD rate excl. VAT Y-1' = DIVIDE([MKD value excl. VAT Y-1], [Sales ISP excl. VAT Y-1])
+		formatString: #,0.0%;-#,0.0%;#,0.0%
+		displayFolder: 01.Sales\Y-1
+		lineageTag: 6390dd7d-e9ae-4a4b-a259-ac5a3b40d1dd
+
+	measure 'Sales margin rate' = DIVIDE([Sales margin value], [GMV excl. VAT])
+		formatString: #,0.0%;-#,0.0%;#,0.0%
+		displayFolder: 01.Sales\Y
+		lineageTag: e8ced4e7-e195-483d-bb06-97e0a5856176
+
+	measure 'Sales margin rate Y-1' = DIVIDE([Sales margin value Y-1], [GMV excl. VAT Y-1])
+		formatString: #,0.0%;-#,0.0%;#,0.0%
+		displayFolder: 01.Sales\Y-1
+		lineageTag: 211367ea-75a7-4010-a2b8-6f089a3d2e85
+
+	measure 'ASP excl. VAT' = DIVIDE([GMV excl. VAT], [Sales quantities])
+		formatString: #,0.0
+		displayFolder: 01.Sales\Y
+		lineageTag: b38a7bcf-ffb4-4311-a81e-affe70bb8220
+
+	measure 'ASP excl. VAT Y-1' = DIVIDE([GMV excl. VAT Y-1], [Sales quantities Y-1])
+		formatString: #,0.0
+		displayFolder: 01.Sales\Y-1
+		lineageTag: 4a1eaa21-6c92-4ee8-8742-d1dabcde5579
+
+	measure 'GMV goal excl. VAT' = ```
+			
+			IF (
+			    [_IsLocal],
+			    SUM ( 'Goal'[GMV_excl_VAT_local] ),
+			    SUM ( 'Goal'[GMV_excl_VAT_euro] )
+			)
+			
+			```
+		displayFolder: 02.Goal\Y
+		lineageTag: 18af5d05-bfaa-47bf-afd4-ba5151b374a7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '_GMV Goal excl. VAT Y-1 (d)' =
+			
+			VAR ComparableStores =
+			    CALCULATETABLE(
+			        VALUES('Goal'[ID_Store])
+			    )
+			VAR MaxDate =
+			    MAX('Calendar'[Date])
+			RETURN
+			if(ISFILTERED('Comparable Flag'),
+			CALCULATE(
+			    [GMV Goal excl. VAT],
+			    TREATAS(
+			        ComparableStores,
+			        'Goal'[ID_Store]
+			    ),
+			    SAMEPERIODLASTYEAR('Calendar'[Date]),
+			    'Calendar'[Date] <= EDATE(MaxDate,-12),
+			    REMOVEFILTERS('Comparable Flag')
+			),
+			CALCULATE(
+			    [GMV Goal excl. VAT],
+			    SAMEPERIODLASTYEAR('Calendar'[Date]),
+			    'Calendar'[Date] <= EDATE(MaxDate,-12)
+			))
+		formatString: #,0.00
+		isHidden
+		displayFolder: 02.Goal\Y-1\date to date
+		lineageTag: e9db6405-dcb7-4139-b4b1-0898ce2a1630
+
+	measure '_GMV Goal excl. VAT Y-1 (like)' =
+			
+			VAR __LastYearComparable =
+			    VALUES ( 'Calendar'[date_comparable_day_y1] )
+			VAR PerimeterN =
+			    CALCULATETABLE(
+			        VALUES('Goal'[ID_Store])
+			    )
+			RETURN
+			if (ISFILTERED('Comparable Flag'),
+			CALCULATE(
+			    [GMV Goal excl. VAT],
+			    TREATAS( __LastYearComparable, 'Calendar'[Date] ),
+			    TREATAS(PerimeterN, 'Goal'[ID_Store])
+			    ,REMOVEFILTERS('Comparable Flag')
+			),
+			CALCULATE(
+			    [GMV Goal excl. VAT],
+			    TREATAS( __LastYearComparable, 'Calendar'[Date] )
+			))
+		formatString: #,0.00
+		isHidden
+		displayFolder: 02.Goal\Y-1\like for like
+		lineageTag: 6e87c149-93e7-4aaa-8b74-638356b22a68
+
+	measure 'GMV goal excl. VAT  Y-1' =
+			SWITCH (
+			    TRUE (),
+			      ISFILTERED ( 'Calendar'[Date] ) || ISFILTERED ( 'Calendar'[YearWeek] )
+			        || ISFILTERED ( 'Calendar'[Year 445] )
+			        || ISFILTERED ( 'Calendar'[YearMonth 445] )
+			        || ISFILTERED ( 'Calendar'[YearQuarter 445] )
+			        || ISFILTERED ( 'Calendar'[YearSemester 445] ),
+			    [_GMV Goal excl. VAT Y-1 (like)], [_GMV Goal excl. VAT Y-1 (d)]
+			)
+		formatString: #,0.00
+		displayFolder: 02.Goal\Y-1
+		lineageTag: 20528ad6-ec0d-4558-b01a-bdffd7dffb1b
+
+	measure 'ASP gap excl. VAT' = [ASP excl. VAT]-[ASP excl. VAT Y-1]
+		formatString: #,0.0
+		displayFolder: 01.Sales\Y-1 (Gap)
+		lineageTag: bbca5993-b680-4754-8b43-b544a742914a
+
+	measure 'Sales FISC gap excl. VAT' = [Sales FISC excl. VAT] - [Sales FISC excl. VAT Y-1]
+		formatString: #,0.0
+		displayFolder: 01.Sales\Y-1 (Gap)
+		lineageTag: 12775327-4ef6-4ca5-a16d-ad7b6e06ec2f
+
+	measure 'Sales PP gap excl. VAT' = [Sales PP excl. VAT] - [Sales PP excl. VAT Y-1]
+		formatString: #,0.0
+		displayFolder: 01.Sales\Y-1 (Gap)
+		lineageTag: 852096bb-009e-4707-ae26-34bc9e8d1753
+
+	measure 'GMV gap excl. VAT' = [GMV excl. VAT] - [GMV excl. VAT Y-1]
+		formatString: #,0.0
+		displayFolder: 01.Sales\Y-1 (Gap)
+		lineageTag: c0f6470c-f9ca-47ce-8557-e2c36dbda844
+
+	measure 'Sales ISP gap excl. VAT' = [Sales ISP excl. VAT] - [Sales ISP excl. VAT Y-1]
+		formatString: #,0.0
+		displayFolder: 01.Sales\Y-1 (Gap)
+		lineageTag: dde86c38-dc01-4465-a452-fceb1caf5135
+
+	measure 'Sales margin value gap' = [Sales margin value]-[Sales margin value Y-1]
+		formatString: #,0.0
+		displayFolder: 01.Sales\Y-1 (Gap)
+		lineageTag: 609a6d8f-e220-4830-b16b-b0f23523b93c
+
+	measure 'Sales margin rate gap' = ([Sales margin rate] - [Sales margin rate Y-1])*100
+		formatString: #,0.0
+		displayFolder: 01.Sales\Y-1 (Gap)
+		lineageTag: 7b4faf03-9976-4c27-8b33-810ea79b96a4
+
+	measure 'MKD rate gap excl. VAT' = ([MKD rate excl. VAT] - [MKD rate excl. VAT Y-1])*100
+		formatString: #,0.0
+		displayFolder: 01.Sales\Y-1 (Gap)
+		lineageTag: 29fa8fdc-521e-4dd0-96ce-a03e04a89e23
+
+	measure 'Sales quantities gap' = [Sales quantities]-[Sales quantities Y-1]
+		formatString: #,0
+		displayFolder: 01.Sales\Y-1 (Gap)
+		lineageTag: d6e01627-d8e1-4dd8-891f-bc2194ea5f94
+
+	measure 'Sales quantities growth' =
+			
+			DIVIDE ([Sales quantities gap], [Sales quantities Y-1] )
+		formatString: #,0.0%;-#,0.0%;#,0.0%
+		displayFolder: 01.Sales\Y-1 (Growth)
+		lineageTag: af9c274f-d6fd-47ff-8f7b-156ba7a77f2f
+
+	measure 'MKD value excl. VAT' = [Sales ISP excl. VAT] - [GMV excl. VAT]
+		formatString: #,0.0
+		displayFolder: 01.Sales\Y
+		lineageTag: 9944617d-228f-4908-9cf0-38e9e99e0401
+
+	measure 'MKD value excl. VAT Y-1' = [Sales ISP excl. VAT Y-1] - [GMV excl. VAT Y-1]
+		formatString: #,0.0
+		displayFolder: 01.Sales\Y-1
+		lineageTag: bb7480f5-736b-4342-b5ec-88e7e0dbabfa
+
+	measure 'MKD value gap excl. VAT' = [MKD value excl. VAT] - [MKD value excl. VAT Y-1]
+		formatString: #,0.0
+		displayFolder: 01.Sales\Y-1 (Gap)
+		lineageTag: 584d8cba-a3e4-494f-b22c-8c64fc8fa892
+
+	measure 'Sales FISC growth excl. VAT' =
+			
+			DIVIDE ([Sales FISC gap excl. VAT],[Sales FISC excl. VAT Y-1] )
+		formatString: #,0.0%;-#,0.0%;#,0.0%
+		displayFolder: 01.Sales\Y-1 (Growth)
+		lineageTag: 3b383be2-05a3-49e4-9834-9a783e263cdd
+
+	measure 'GMV growth excl. VAT' =
+			
+			DIVIDE ( [GMV gap excl. VAT], [GMV excl. VAT Y-1] )
+		formatString: #,0.0%;-#,0.0%;#,0.0%
+		displayFolder: 01.Sales\Y-1 (Growth)
+		lineageTag: 0a9b232b-6c66-44b3-8dc0-7fbe920fcf28
+
+	measure 'Sales ISP growth excl. VAT' =
+			
+			DIVIDE ([Sales ISP gap excl. VAT], [Sales ISP excl. VAT Y-1])
+		formatString: #,0.0%;-#,0.0%;#,0.0%
+		displayFolder: 01.Sales\Y-1 (Growth)
+		lineageTag: 83796d68-93d4-41c5-8409-dd712a016d3e
+
+	measure 'Sales PP growth excl. VAT' =
+			
+			DIVIDE ([Sales PP gap excl. VAT], [Sales PP excl. VAT Y-1])
+		formatString: #,0.0%;-#,0.0%;#,0.0%
+		displayFolder: 01.Sales\Y-1 (Growth)
+		lineageTag: 460d770a-5d8e-49b7-9458-fa7e388208c0
+
+	measure 'Sales margin value growth' =
+			
+			DIVIDE ( [Sales margin value gap], [Sales margin value Y-1])
+		formatString: #,0.0%;-#,0.0%;#,0.0%
+		displayFolder: 01.Sales\Y-1 (Growth)
+		lineageTag: 4dcac21b-c8e4-4c17-86f2-5ce2afa15034
+
+	measure 'MKD value growth excl. VAT' =
+			
+			DIVIDE ([MKD value gap excl. VAT], [MKD value excl. VAT Y-1])
+		formatString: #,0.0%;-#,0.0%;#,0.0%
+		displayFolder: 01.Sales\Y-1 (Growth)
+		lineageTag: 377e5d50-3bc7-4d56-a570-3485f681b1b2
+
+	measure 'GMV excl. VAT vs goal' = DIVIDE([GMV excl. VAT] , [GMV goal excl. VAT])
+		formatString: #,0.0%;-#,0.0%;#,0.0%
+		displayFolder: 03.Sales vs goal\Y
+		lineageTag: 715b5a70-297a-4c09-9fa1-2c5609ff687f
+
+	measure 'GMV excl. VAT Y-1 vs goal Y-1' = DIVIDE([GMV excl. VAT Y-1] , [GMV goal excl. VAT  Y-1])
+		formatString: #,0.0%;-#,0.0%;#,0.0%
+		displayFolder: 03.Sales vs goal\Y-1
+		lineageTag: 9f9638b5-17b3-41ea-b20f-2ae1813bf7c1
+
+	measure '_Number of tickets Y-1 (d)' =
+			
+			VAR ComparableStores =
+			    CALCULATETABLE(
+			        VALUES('Tickets Traffic'[Id_Store])
+			    )
+			VAR MaxDate =
+			    MAX('Calendar'[Date])
+			RETURN
+			if(ISFILTERED('Comparable Flag'),
+			CALCULATE(
+			    [Number of tickets],
+			    TREATAS(
+			        ComparableStores,
+			        'Tickets Traffic'[ID_Store]
+			    ),
+			    SAMEPERIODLASTYEAR('Calendar'[Date]),
+			    'Calendar'[Date] <= EDATE(MaxDate,-12),
+			    REMOVEFILTERS('Comparable Flag')
+			),
+			CALCULATE(
+			    [Number of tickets],
+			    SAMEPERIODLASTYEAR('Calendar'[Date]),
+			    'Calendar'[Date] <= EDATE(MaxDate,-12)
+			))
+		formatString: #,0
+		isHidden
+		displayFolder: 04.Number of tickets & traffic\Y-1\date to date
+		lineageTag: a2a8dccf-28b1-4f8a-8014-f738124044cb
+
+	measure '_Traffic Y-1 (d)' =
+			
+			VAR ComparableStores =
+			    CALCULATETABLE(
+			        VALUES('Tickets Traffic'[Id_Store])
+			    )
+			VAR MaxDate =
+			    MAX('Calendar'[Date])
+			RETURN
+			if(ISFILTERED('Comparable Flag'),
+			CALCULATE(
+			    [Traffic],
+			    TREATAS(
+			        ComparableStores,
+			        'Tickets Traffic'[ID_Store]
+			    ),
+			    SAMEPERIODLASTYEAR('Calendar'[Date]),
+			    'Calendar'[Date] <= EDATE(MaxDate,-12),
+			    REMOVEFILTERS('Comparable Flag')
+			),
+			CALCULATE(
+			    [Traffic],
+			    SAMEPERIODLASTYEAR('Calendar'[Date]),
+			    'Calendar'[Date] <= EDATE(MaxDate,-12)
+			))
+		formatString: #,0
+		isHidden
+		displayFolder: 04.Number of tickets & traffic\Y-1\date to date
+		lineageTag: 2af03998-c241-4c8f-9b4c-056a837d46b8
+
+	measure '_Number of tickets Y-1 (like)' =
+			
+			VAR __LastYearComparable =
+			    VALUES ( 'Calendar'[date_comparable_day_y1] )
+			VAR PerimeterN =
+			    CALCULATETABLE(
+			        VALUES('Tickets Traffic'[Id_Store])
+			    )
+			RETURN
+			if (ISFILTERED('Comparable Flag'),
+			CALCULATE(
+			    [Number of tickets],
+			    TREATAS( __LastYearComparable, 'Calendar'[Date] ),
+			    TREATAS(PerimeterN, 'Tickets Traffic'[ID_Store])
+			    ,REMOVEFILTERS('Comparable Flag')
+			),
+			CALCULATE(
+			    [Number of tickets],
+			    TREATAS( __LastYearComparable, 'Calendar'[Date] )
+			))
+		formatString: #,0
+		isHidden
+		displayFolder: 04.Number of tickets & traffic\Y-1\like for like
+		lineageTag: 7a6ea8df-8c1d-4a32-a33a-b21f3c967f14
+
+	measure '_Traffic Y-1 (like)' =
+			
+			VAR __LastYearComparable =
+			    VALUES ( 'Calendar'[date_comparable_day_y1] )
+			VAR PerimeterN =
+			    CALCULATETABLE(
+			        VALUES('Tickets Traffic'[Id_Store])
+			    )
+			RETURN
+			if(ISFILTERED('Comparable Flag'),
+			CALCULATE(
+			    [Traffic],
+			    TREATAS( __LastYearComparable, 'Calendar'[Date] ),
+			    TREATAS(PerimeterN, 'Tickets Traffic'[ID_Store])
+			    ,REMOVEFILTERS('Comparable Flag')
+			),
+			CALCULATE(
+			    [Traffic],
+			    TREATAS( __LastYearComparable, 'Calendar'[Date] )
+			))
+		formatString: #,0
+		isHidden
+		displayFolder: 04.Number of tickets & traffic\Y-1\like for like
+		lineageTag: 41b435a6-845e-4cd3-8478-5b1263aa63db
+
+	measure 'Number of tickets Y-1' =
+			SWITCH (
+			    TRUE (),
+			      ISFILTERED ( 'Calendar'[Date] ) || ISFILTERED ( 'Calendar'[YearWeek] )
+			        || ISFILTERED ( 'Calendar'[Year 445] )
+			        || ISFILTERED ( 'Calendar'[YearPeriod 445] )
+			        || ISFILTERED ( 'Calendar'[YearMonth 445] )
+			        || ISFILTERED ( 'Calendar'[YearQuarter 445] )
+			        || ISFILTERED ( 'Calendar'[YearSemester 445] ),
+			    [_Number of tickets Y-1 (like)], [_Number of tickets Y-1 (d)]
+			)
+		formatString: #,0
+		displayFolder: 04.Number of tickets & traffic\Y-1
+		lineageTag: 11b5081a-ad86-4748-bf35-9bfd62e30273
+
+	measure 'Traffic Y-1' =
+			SWITCH (
+			    TRUE (),
+			     ISFILTERED ( 'Calendar'[Date] ) || ISFILTERED ( 'Calendar'[YearWeek] )
+			        || ISFILTERED ( 'Calendar'[Year 445] )
+			        || ISFILTERED ( 'Calendar'[YearPeriod 445] )
+			        || ISFILTERED ( 'Calendar'[YearMonth 445] )
+			        || ISFILTERED ( 'Calendar'[YearQuarter 445] )
+			        || ISFILTERED ( 'Calendar'[YearSemester 445] ),
+			    [_Traffic Y-1 (like)], [_Traffic Y-1 (d)]
+			)
+		formatString: #,0
+		displayFolder: 04.Number of tickets & traffic\Y-1
+		lineageTag: d8f7d5b7-f84a-4a9e-86b4-9185e7434df0
+
+	measure 'ASP growth excl. VAT' =
+			
+			DIVIDE ([ASP gap excl. VAT], [ASP excl. VAT Y-1])
+		formatString: #,0.0%;-#,0.0%;#,0.0%
+		displayFolder: 01.Sales\Y-1 (Growth)
+		lineageTag: d2cf6b70-6046-4729-9df6-fa2dcdaebcc3
+
+	measure 'Conversion rate' = CALCULATE(DIVIDE([Number of tickets],[Traffic]), 'Tickets Traffic'[significatif_rate]="O")
+		formatString: #,0.0%;-#,0.0%;#,0.0%
+		displayFolder: 04.Number of tickets & traffic\Y
+		lineageTag: 9cdc2fdb-4142-44cf-865c-456e56464f9a
+
+	measure 'Conversion rate Y-1' = CALCULATE(DIVIDE([Number of tickets Y-1],[Traffic Y-1]), 'Tickets Traffic'[significatif_rate]="O")
+		formatString: #,0.0%;-#,0.0%;#,0.0%
+		displayFolder: 04.Number of tickets & traffic\Y-1
+		lineageTag: 4b6cb445-99cf-40dd-8b58-a6b0206e7e03
+
+	measure _IsLocal = ISFILTERED('Local Currency')
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		isHidden
+		displayFolder: 00.Construct
+		lineageTag: 40c9e4a1-664a-4657-9928-cf289df17db1
+
+		changedProperty = IsHidden
+
+	measure 'AISP excl. VAT' = DIVIDE([Sales ISP excl. VAT], [Sales quantities])
+		formatString: #,0.0
+		displayFolder: 01.Sales\Y
+		lineageTag: df824a1f-9c8b-43b6-a72f-30b98b2d77ab
+
+	measure 'AISP excl. VAT Y-1' = DIVIDE([Sales ISP excl. VAT Y-1], [Sales quantities Y-1])
+		formatString: #,0.0
+		displayFolder: 01.Sales\Y-1
+		lineageTag: 16415420-b823-4b11-acf3-0b93e976160d
+
+	measure 'AISP gap excl. VAT' = [AISP excl. VAT]-[AISP excl. VAT Y-1]
+		formatString: #,0.0
+		displayFolder: 01.Sales\Y-1 (Gap)
+		lineageTag: 955487e2-95b6-44a9-a9a1-0a2ba22ab187
+
+	measure 'AISP growth excl. VAT' =
+			
+			DIVIDE ([AISP gap excl. VAT], [AISP excl. VAT Y-1] )
+		formatString: #,0.0%;-#,0.0%;#,0.0%
+		displayFolder: 01.Sales\Y-1 (Growth)
+		lineageTag: c221498c-abbb-4d3d-b98d-02dc070027b5
+
+	measure test = "Pastel"
+		lineageTag: 8fb32626-8511-4f8e-9f58-db9d06fbf852
+
+	measure 'test tabular editor' =
+			
+			IF (
+			    [_IsLocal],
+			    SWITCH (
+			        TRUE (),
+			        [_Sales_level], SUM ( 'Sales Class Level'[GMV_excl_VAT_local] ),
+			        SUM ( Sales[GMV_excl_VAT_local] )
+			    ),
+			    SWITCH (
+			        TRUE (),
+			        [_Sales_level], SUM ( 'Sales Class Level'[GMV_excl_VAT_euro] ),
+			        SUM ( Sales[GMV_excl_VAT_euro] )
+			    )
+			)
+		formatString: #,0.0
+		displayFolder: 01.Sales\Y
+		lineageTag: 2b2a647c-53c1-424b-b2a3-c8827711eb21
+
+	column _KPI
+		dataType: string
+		isHidden
+		lineageTag: 3ed73e7d-963b-4c49-ab77-dfa05472a8fa
+		summarizeBy: none
+		sourceColumn: _KPI
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _KPI = m
+		mode: import
+		source =
+				let
+				    Source = ""
+				in
+				    Source
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+

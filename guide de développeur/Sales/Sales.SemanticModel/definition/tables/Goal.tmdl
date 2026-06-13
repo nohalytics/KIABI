@@ -1,0 +1,98 @@
+table Goal
+	isHidden
+	lineageTag: 1155fcf5-b3e2-400e-9179-52be4a6ff3bf
+
+	column Date
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: 5d12cd27-27b4-412f-bd53-72556416f2dc
+		summarizeBy: none
+		sourceColumn: Date
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column ID_Store
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 2ad49bef-c6c2-4cf1-b849-dadaeef584e5
+		summarizeBy: none
+		sourceColumn: ID_Store
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID_Comparable_flag
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: af77f7a2-b282-45a9-b12f-7c8d968d33a9
+		summarizeBy: none
+		sourceColumn: ID_Comparable_flag
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column GMV_excl_VAT_local
+		dataType: double
+		isHidden
+		lineageTag: f5f7a81e-7956-480a-9a2e-d4055e2456c9
+		summarizeBy: sum
+		sourceColumn: GMV_excl_VAT_local
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column GMV_excl_VAT_euro
+		dataType: double
+		isHidden
+		lineageTag: 28fc2b79-1465-4421-82f0-87e5aedaaa32
+		summarizeBy: sum
+		sourceColumn: GMV_excl_VAT_euro
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition Goal = m
+		mode: import
+		queryGroup: '02.Facts'
+		source = ```
+				let
+				    Source = Value.NativeQuery(GoogleBigQuery.Database([BillingProject=P_Billing_Project]){[Name=P_Project_Name]}[Data], "
+				   SELECT
+				    Date,
+				    ID_Store,
+				    ID_Comparable_flag,
+				    GMV_excl_VAT_local,
+				    GMV_excl_VAT_euro
+				FROM 
+				    `expo_self_bi_sales.budget`
+				WHERE 
+				    Date >= DATE_TRUNC(
+				        DATE_SUB(CURRENT_DATE(), INTERVAL 36 MONTH),
+				        MONTH
+				    )
+				    AND Date <= CURRENT_DATE() - 1", null, [EnableFolding=true])
+				in
+				    Source
+				```
+
+	changedProperty = IsHidden
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Exception
+

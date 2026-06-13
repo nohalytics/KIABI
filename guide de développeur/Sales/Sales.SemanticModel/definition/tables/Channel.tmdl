@@ -1,0 +1,50 @@
+table Channel
+	lineageTag: dc971aea-c5e3-48e9-a01b-3d898bba53ff
+
+	column ID_Channel
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 9b68dd5c-e068-439b-8018-aab4a3942b26
+		summarizeBy: none
+		sourceColumn: ID_Channel
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sales channel'
+		dataType: string
+		lineageTag: e5515e08-2df7-47d1-b48d-137acaf60c31
+		summarizeBy: none
+		sourceColumn: Sales channel
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Delivery Channel'
+		dataType: string
+		lineageTag: 1a63f136-cc3b-463b-9d84-711c68cd3465
+		summarizeBy: none
+		sourceColumn: Delivery Channel
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Channel = m
+		mode: import
+		queryGroup: '01.Dimensions'
+		source =
+				let
+				    Source = Value.NativeQuery(GoogleBigQuery.Database([BillingProject=P_Billing_Project]){[Name=P_Project_Name]}[Data], "
+				    SELECT#
+				   ID_Sales_channel,
+				   Sales_channel,
+				   Delivery_Channel
+				  FROM `expo_self_bi_sales.sales_channel`", null, [EnableFolding=true]),
+				    #"Renamed Columns" = Table.RenameColumns(Source,{{"ID_Sales_channel", "ID_Channel"}, {"Sales_channel", "Sales channel"}, {"Delivery_Channel", "Delivery Channel"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

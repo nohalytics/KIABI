@@ -1,0 +1,80 @@
+table 'Product Hierarchy'
+	lineageTag: 670457cb-7d3a-46d1-a485-c599351730d3
+
+	column ID_Class
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 525ddc1f-ea72-4905-a769-c124b7995fb1
+		summarizeBy: none
+		sourceColumn: ID_Class
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Group
+		dataType: string
+		lineageTag: 8cc730d7-9862-4b2a-845e-23c3dec71a44
+		summarizeBy: none
+		sourceColumn: Group
+
+		annotation SummarizationSetBy = Automatic
+
+	column Market
+		dataType: string
+		lineageTag: af82a7e1-6fe3-404b-9f72-18214d99f810
+		summarizeBy: none
+		sourceColumn: Market
+
+		annotation SummarizationSetBy = Automatic
+
+	column Department
+		dataType: string
+		lineageTag: 890f503b-e98b-4e71-a050-b597d1045490
+		summarizeBy: none
+		sourceColumn: Department
+
+		annotation SummarizationSetBy = Automatic
+
+	column Class
+		dataType: string
+		lineageTag: 04f432fb-afa2-430b-82fd-0b2de8581240
+		summarizeBy: none
+		sourceColumn: Class
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Key groups'
+		dataType: string
+		lineageTag: 70eb1e18-e533-4586-86ff-47443bfa18c8
+		summarizeBy: none
+		sourceColumn: Key groups
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Product Hierarchy' = m
+		mode: import
+		queryGroup: '01.Dimensions'
+		source = ```
+				let
+				    Source = Value.NativeQuery(GoogleBigQuery.Database([BillingProject=P_Billing_Project]){[Name=P_Project_Name]}[Data], "
+						SELECT
+								    ID_Class,
+								    Group_,
+								    key_groups,
+								    Market,
+								    Department,
+								    Class
+								FROM 
+								    `expo_self_bi_sales.product_hierarchy`
+								    ", null, [EnableFolding=true]),
+								    #"Renamed Columns1" = Table.RenameColumns(Source,{{"Group_", "Group"}, {"key_groups", "Key groups"}})
+								in
+								    #"Renamed Columns1"
+				```
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
