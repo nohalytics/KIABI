@@ -2,8 +2,8 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definitionProperties/2.0.0/schema.json",
   "version": "4.0",
   "datasetReference": {
-    "byConnection": {
-      "connectionString": "Data Source=\"powerbi://api.powerbi.com/v1.0/myorg/Guide de développeur (DEV)\";initial catalog=Sales;access mode=readonly;integrated security=ClaimsToken;semanticmodelid=451819dc-fe03-43b3-a516-2d3a12be1d51"
+    "byPath": {
+      "path": "../Sales.SemanticModel"
     }
   }
 }
