@@ -1,0 +1,43 @@
+{
+  "config": "{\"version\":\"5.73\",\"themeCollection\":{\"baseTheme\":{\"name\":\"CY26SU05\",\"type\":2,\"version\":{\"visual\":\"2.9.0\",\"report\":\"3.3.0\",\"page\":\"2.3.1\"}}},\"activeSectionIndex\":0,\"defaultDrillFilterOtherVisuals\":true,\"linguisticSchemaSyncVersion\":2,\"settings\":{\"useNewFilterPaneExperience\":true,\"allowChangeFilterTypes\":true,\"useStylableVisualContainerHeader\":true,\"queryLimitOption\":6,\"useEnhancedTooltips\":true,\"exportDataMode\":1,\"useDefaultAggregateDisplayName\":true},\"objects\":{\"section\":[{\"properties\":{\"verticalAlignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Top'\"}}}}}]}}",
+  "layoutOptimization": 0,
+  "resourcePackages": [
+    {
+      "resourcePackage": {
+        "disabled": false,
+        "items": [
+          {
+            "name": "CY26SU05",
+            "path": "BaseThemes/CY26SU05.json",
+            "type": 202
+          }
+        ],
+        "name": "SharedResources",
+        "type": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "config": "{}",
+      "displayName": "Page 1",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "1f70dad7a4f2b8bbbcf2",
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"db233247e4930b52020b\",\"layouts\":[{\"id\":0,\"position\":{\"x\":384,\"y\":224,\"z\":0,\"width\":272,\"height\":272,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"columnChart\",\"projections\":{\"Category\":[{\"queryRef\":\"Sales.Pays\",\"active\":true}],\"Y\":[{\"queryRef\":\"Sum(Sales.CA)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"s\",\"Entity\":\"Sales\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"Pays\"},\"Name\":\"Sales.Pays\",\"NativeReferenceName\":\"Pays\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"CA\"}},\"Function\":0},\"Name\":\"Sum(Sales.CA)\",\"NativeReferenceName\":\"Sum of CA\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"CA\"}},\"Function\":0}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true}}",
+          "filters": "[]",
+          "height": 272.00,
+          "queryBinary": "H4sIAAAAAAAEAL2SMU/DMBCF/0rlCSQLJYgpW5u2DAgoLSoD6mA512DU2NElBqIo/507OxVFggmJzX6+e/f59HqRu6pStmhE9tyLDdC5NfrBA3Zz1arNi6phLBFZL8IDH7aAjXFWZJdSLNFVof1OVSAy0QgpFmTTUqXYqAOw8NjV9JYMO0lTDqDb0JG7g68sGy4+aoQmehKI86hhDfuvSzAeBilW6GrAYL5SHWnyODjMuggia615YwtAsBrGkrGjF9OyRCipxv0w/o9Y+TQoS2919E9OGH11Fjnz6fmvmFQ1cfsJG9HC7rEAnHVhY3ODMLrS6r/j/fOfhmFHyszYwtiSu1doKhXzcY3O1yTHXJHPa6TmeyLTXWjlhK2h8PpIzMKWOQnhSp76PdEU9x7/4S2FJ00SJpBfSUwH3gdoz2630KLRzY3h3KZM+gkc4NYj6wIAAA==",
+          "width": 272.00,
+          "x": 384.00,
+          "y": 224.00,
+          "z": 0.00
+        }
+      ],
+      "width": 1280.00
+    }
+  ]
+}
