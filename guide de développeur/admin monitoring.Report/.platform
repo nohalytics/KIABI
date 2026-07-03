@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "admin monitoring"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "6ff303e8-2dbd-a9e7-4ce7-6587277c9dbd"
+  }
+}
