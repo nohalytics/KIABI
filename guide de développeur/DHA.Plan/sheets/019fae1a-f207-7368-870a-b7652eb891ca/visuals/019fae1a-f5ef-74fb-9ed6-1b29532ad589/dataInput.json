@@ -1,0 +1,252 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/plan/definition/Planning/DataInput/1.0.0/schema.json",
+  "columns": [
+    {
+      "boundToFilterContext": 10,
+      "columnMeta": {
+        "data_type": "Number",
+        "description": null,
+        "id": "9621983251064551035",
+        "label": "Sales remaining",
+        "measure_type": {
+          "Native": {
+            "measure_role": "ACMeasure"
+          }
+        },
+        "name": "Sales remaining"
+      },
+      "dataInputType": 6,
+      "description": null,
+      "measureGuid": "9621983251064551035",
+      "name": "Sales remaining",
+      "sidecarHydrationLeaseAt": null,
+      "sidecarHydrationStatus": 10,
+      "status": 10,
+      "visualId": "019fae1a-f5ef-74fb-9ed6-1b29532ad589"
+    },
+    {
+      "boundToFilterContext": 10,
+      "columnMeta": {
+        "data_type": "Number",
+        "description": "",
+        "id": "8439840737441868642",
+        "label": "Sales simu",
+        "measure_type": {
+          "DataInput": {
+            "allow_input": "ReadAndEdit",
+            "bound_to_filter_context": true,
+            "column_type": {
+              "Simulation": {
+                "distribute_parent_value_to_children": false,
+                "simulation_range": 100,
+                "simulation_slider": true,
+                "simulation_value_align": "left",
+                "source_measure_id": "9621983251064551035",
+                "variance_formatting_style": "POSITIVE"
+              }
+            },
+            "disable_write_access": false,
+            "id": "",
+            "on_change_formula": "",
+            "title": ""
+          }
+        }
+      },
+      "dataInputType": 25,
+      "description": null,
+      "measureGuid": "8439840737441868642",
+      "name": "Sales simu",
+      "sidecarHydrationLeaseAt": null,
+      "sidecarHydrationStatus": 10,
+      "status": 10,
+      "visualId": "019fae1a-f5ef-74fb-9ed6-1b29532ad589"
+    },
+    {
+      "boundToFilterContext": 10,
+      "columnMeta": {
+        "data_type": "Number",
+        "description": null,
+        "id": "3325782629132539086",
+        "label": "Delivery remaining",
+        "measure_type": {
+          "Native": {
+            "measure_role": "ACMeasure"
+          }
+        },
+        "name": "Delivery remaining"
+      },
+      "dataInputType": 6,
+      "description": null,
+      "measureGuid": "3325782629132539086",
+      "name": "Delivery remaining",
+      "sidecarHydrationLeaseAt": null,
+      "sidecarHydrationStatus": 10,
+      "status": 10,
+      "visualId": "019fae1a-f5ef-74fb-9ed6-1b29532ad589"
+    },
+    {
+      "boundToFilterContext": 10,
+      "columnMeta": {
+        "data_type": "Number",
+        "description": "",
+        "id": "6578486134623309533",
+        "label": "Delivery simu",
+        "measure_type": {
+          "DataInput": {
+            "allow_input": "ReadAndEdit",
+            "bound_to_filter_context": true,
+            "column_type": {
+              "Simulation": {
+                "distribute_parent_value_to_children": true,
+                "simulation_range": 100,
+                "simulation_slider": true,
+                "simulation_value_align": "left",
+                "source_measure_id": "3325782629132539086",
+                "variance_formatting_style": "POSITIVE"
+              }
+            },
+            "disable_write_access": false,
+            "id": "",
+            "on_change_formula": "",
+            "title": "Delivery simu"
+          }
+        }
+      },
+      "dataInputType": 25,
+      "description": null,
+      "measureGuid": "6578486134623309533",
+      "name": "Delivery simu",
+      "sidecarHydrationLeaseAt": null,
+      "sidecarHydrationStatus": 10,
+      "status": 10,
+      "visualId": "019fae1a-f5ef-74fb-9ed6-1b29532ad589"
+    },
+    {
+      "boundToFilterContext": 10,
+      "columnMeta": {
+        "data_type": "Number",
+        "description": null,
+        "id": "14355135961658501579",
+        "label": "Stock remaining",
+        "measure_type": {
+          "Native": {
+            "measure_role": "ACMeasure"
+          }
+        },
+        "name": "Stock remaining"
+      },
+      "dataInputType": 6,
+      "description": null,
+      "measureGuid": "14355135961658501579",
+      "name": "Stock remaining",
+      "sidecarHydrationLeaseAt": null,
+      "sidecarHydrationStatus": 10,
+      "status": 10,
+      "visualId": "019fae1a-f5ef-74fb-9ed6-1b29532ad589"
+    },
+    {
+      "boundToFilterContext": 10,
+      "columnMeta": {
+        "data_type": "Number",
+        "description": "",
+        "id": "3476348097926015845",
+        "label": "Stock remaining simu",
+        "measure_type": {
+          "DataInput": {
+            "allow_input": "ReadAndEdit",
+            "bound_to_filter_context": true,
+            "column_type": {
+              "Simulation": {
+                "distribute_parent_value_to_children": true,
+                "simulation_range": 100,
+                "simulation_slider": true,
+                "simulation_value_align": "left",
+                "source_measure_id": "14355135961658501579",
+                "variance_formatting_style": "POSITIVE"
+              }
+            },
+            "disable_write_access": false,
+            "id": "",
+            "on_change_formula": "",
+            "title": "Stock remaining simu"
+          }
+        }
+      },
+      "dataInputType": 25,
+      "description": null,
+      "measureGuid": "3476348097926015845",
+      "name": "Stock remaining simu",
+      "sidecarHydrationLeaseAt": null,
+      "sidecarHydrationStatus": 10,
+      "status": 10,
+      "visualId": "019fae1a-f5ef-74fb-9ed6-1b29532ad589"
+    },
+    {
+      "boundToFilterContext": 10,
+      "columnMeta": {
+        "data_type": "Number",
+        "description": null,
+        "id": "12805934232954344323",
+        "label": "NBS realisable",
+        "measure_type": {
+          "Native": {
+            "measure_role": "ACMeasure"
+          }
+        },
+        "name": "NBS realisable"
+      },
+      "dataInputType": 6,
+      "description": null,
+      "measureGuid": "12805934232954344323",
+      "name": "NBS realisable",
+      "sidecarHydrationLeaseAt": null,
+      "sidecarHydrationStatus": 10,
+      "status": 10,
+      "visualId": "019fae1a-f5ef-74fb-9ed6-1b29532ad589"
+    },
+    {
+      "boundToFilterContext": 20,
+      "columnMeta": {
+        "data_type": "Number",
+        "description": "",
+        "id": "6433845082740768986",
+        "label": "NBS simu",
+        "measure_type": {
+          "Formula": {
+            "formula": "DIVIDE(M_3476348097926015845,M_8439840737441868642)"
+          }
+        }
+      },
+      "dataInputType": 6,
+      "description": null,
+      "measureGuid": "6433845082740768986",
+      "name": "NBS simu",
+      "sidecarHydrationLeaseAt": null,
+      "sidecarHydrationStatus": 10,
+      "status": 10,
+      "visualId": "019fae1a-f5ef-74fb-9ed6-1b29532ad589"
+    },
+    {
+      "boundToFilterContext": 20,
+      "columnMeta": {
+        "data_type": "Number",
+        "description": "",
+        "id": "108438519029602871",
+        "label": "Stock simu",
+        "measure_type": {
+          "Formula": {
+            "formula": "M_14355135961658501579+(M_6578486134623309533-M_3325782629132539086)-(M_8439840737441868642-M_9621983251064551035)"
+          }
+        }
+      },
+      "dataInputType": 6,
+      "description": null,
+      "measureGuid": "108438519029602871",
+      "name": "Stock simu",
+      "sidecarHydrationLeaseAt": null,
+      "sidecarHydrationStatus": 10,
+      "status": 10,
+      "visualId": "019fae1a-f5ef-74fb-9ed6-1b29532ad589"
+    }
+  ]
+}

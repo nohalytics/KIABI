@@ -1,0 +1,24 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/plan/definition/Planning/Writeback/1.0.0/schema.json",
+  "autoWbEnabledScenarioIds": [],
+  "debounce": {
+    "duration": 5,
+    "isDebounceEnabled": 10
+  },
+  "excludedMeasureGuids": [],
+  "isAutoWritebackEnabled": 20,
+  "isSnapshotWbEnabled": 20,
+  "numberPrecision": {
+    "decimal": 2
+  },
+  "stringColumnLength": {
+    "length": "512",
+    "type": 1
+  },
+  "wbTableColumnMapping": {},
+  "writebackAsHTML": false,
+  "writebackFilter": {
+    "type": "none"
+  },
+  "writebackType": 2
+}
