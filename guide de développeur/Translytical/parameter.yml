@@ -35,5 +35,5 @@ find_replace:
 semantic_model_binding:
     default:
         connection_id:
-            PRE: "9af153ac-3ca1-473a-811e-eda636497383"
-            PRO: "20b305e1-6b63-4c83-93b9-df03f8d473dd"
+            PRE: "0bdc5a7c-c7b3-429a-bec3-bb814e08a47a"
+            PRO: "ce3531a5-f590-438a-86cb-d5a752d16d58"
