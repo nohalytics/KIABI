@@ -17,3 +17,17 @@ find_replace:
       file_path:
           - "test translytical.Report/definition/pages/720f0718e3bcae3bdd0a/visuals/dc0b81d6b1d3fadc80b4/visual.json"
           - "test translytical.Report/definition/pages/720f0718e3bcae3bdd0a/visuals/0ec9eb99a99dfe57bde9/visual.json"
+
+    - find_value: "busc6dxmchierdn6rby46laxoa-uxfhnidcfrcenh64rrzsoxti5q.database.fabric.microsoft.com"
+      replace_value:
+          PRE: "busc6dxmchierdn6rby46laxoa-7dpswwtpxkpe5j4lb6slwaju34.database.fabric.microsoft.com"
+          PRO: "busc6dxmchierdn6rby46laxoa-vjvguizx5m5enj5eqfsvx2xue4.database.fabric.microsoft.com"
+      item_type: "SemanticModel"
+      file_path: "**/*.tmdl"
+
+    - find_value: "sqldb_report_status-88b8b8ef-96ba-4860-bc12-a92f45ab72ce"
+      replace_value:
+          PRE: "sqldb_report_status-1a1fb060-7dbc-461a-b20e-b954c66a5347"
+          PRO: "sqldb_report_status-a7befedc-ad03-4e5d-9deb-13c9f2b6e2e6"
+      item_type: "SemanticModel"
+      file_path: "**/*.tmdl"
