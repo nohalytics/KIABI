@@ -5,8 +5,8 @@ find_replace:
           PRO: "236a6aaa-eb37-463a-a7a4-81655beaf427"
       item_type: "Report"
       file_path:
-          - "definition/pages/720f0718e3bcae3bdd0a/visuals/dc0b81d6b1d3fadc80b4/visual.json"
-          - "definition/pages/720f0718e3bcae3bdd0a/visuals/0ec9eb99a99dfe57bde9/visual.json"
+          - "test translytical.Report/definition/pages/720f0718e3bcae3bdd0a/visuals/dc0b81d6b1d3fadc80b4/visual.json"
+          - "test translytical.Report/definition/pages/720f0718e3bcae3bdd0a/visuals/0ec9eb99a99dfe57bde9/visual.json"
 
     - find_value: "1f06d1e0-04b5-472b-ba53-87d3bcfdcfec"
       replace_value:
@@ -14,5 +14,5 @@ find_replace:
           PRO: "ef7f2142-8e84-48a8-91c2-8c9f2ddefa29"
       item_type: "Report"
       file_path:
-          - "definition/pages/720f0718e3bcae3bdd0a/visuals/dc0b81d6b1d3fadc80b4/visual.json"
-          - "definition/pages/720f0718e3bcae3bdd0a/visuals/0ec9eb99a99dfe57bde9/visual.json"
+          - "test translytical.Report/definition/pages/720f0718e3bcae3bdd0a/visuals/dc0b81d6b1d3fadc80b4/visual.json"
+          - "test translytical.Report/definition/pages/720f0718e3bcae3bdd0a/visuals/0ec9eb99a99dfe57bde9/visual.json"
