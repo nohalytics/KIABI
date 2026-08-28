@@ -1,0 +1,15 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "720f0718e3bcae3bdd0a",
+  "displayName": "Message management",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "visualInteractions": [
+    {
+      "source": "6910ff0a4508f9e40ebe",
+      "target": "d0338467bb0e1c7a9b28",
+      "type": "NoFilter"
+    }
+  ]
+}

@@ -1,0 +1,377 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/bookmark/2.1.0/schema.json",
+  "displayName": "Apps",
+  "name": "Bookmark385ca9d0cdbd191c19a6",
+  "options": {
+    "targetVisualNames": [
+      "58f5c77802945d0d9a67"
+    ],
+    "suppressActiveSection": true,
+    "suppressData": true
+  },
+  "explorationState": {
+    "version": "1.3",
+    "activeSection": "ReportSectione80fa451344dd15cf410",
+    "sections": {
+      "ReportSectione80fa451344dd15cf410": {
+        "filters": {
+          "byName": {
+            "Filtere78d80ebff7b862c22cd": {
+              "name": "Filtere78d80ebff7b862c22cd",
+              "type": "Categorical",
+              "expression": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Catalog - Workspace"
+                    }
+                  },
+                  "Property": "Workspace"
+                }
+              },
+              "howCreated": 1
+            }
+          },
+          "byExpr": [
+            {
+              "name": "Filterc9e018df5f9a97cb7ec1",
+              "type": "Categorical",
+              "filter": {
+                "Version": 2,
+                "From": [
+                  {
+                    "Name": "c",
+                    "Entity": "Catalog - Workspace",
+                    "Type": 0
+                  }
+                ],
+                "Where": [
+                  {
+                    "Condition": {
+                      "In": {
+                        "Expressions": [
+                          {
+                            "Column": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Source": "c"
+                                }
+                              },
+                              "Property": "State"
+                            }
+                          }
+                        ],
+                        "Values": [
+                          [
+                            {
+                              "Literal": {
+                                "Value": "'Active'"
+                              }
+                            }
+                          ]
+                        ]
+                      }
+                    }
+                  }
+                ]
+              },
+              "expression": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Catalog - Workspace"
+                    }
+                  },
+                  "Property": "State"
+                }
+              },
+              "howCreated": 1
+            },
+            {
+              "name": "Filter9a5380be2d834e32654d",
+              "type": "Categorical",
+              "filter": {
+                "Version": 2,
+                "From": [
+                  {
+                    "Name": "c",
+                    "Entity": "Catalog - Workspace",
+                    "Type": 0
+                  }
+                ],
+                "Where": [
+                  {
+                    "Condition": {
+                      "In": {
+                        "Expressions": [
+                          {
+                            "Column": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Source": "c"
+                                }
+                              },
+                              "Property": "With Content (Y/N)"
+                            }
+                          }
+                        ],
+                        "Values": [
+                          [
+                            {
+                              "Literal": {
+                                "Value": "true"
+                              }
+                            }
+                          ]
+                        ]
+                      }
+                    }
+                  }
+                ]
+              },
+              "expression": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Catalog - Workspace"
+                    }
+                  },
+                  "Property": "With Content (Y/N)"
+                }
+              },
+              "howCreated": 1
+            },
+            {
+              "name": "Filter346dc0ca5e4ff036b32f",
+              "type": "Categorical",
+              "expression": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Catalog - Workspace"
+                    }
+                  },
+                  "Property": "Is Dedicated Capacity (Y/N)"
+                }
+              },
+              "howCreated": 1
+            },
+            {
+              "name": "Filter2",
+              "type": "Categorical",
+              "expression": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Catalog - Workspace"
+                    }
+                  },
+                  "Property": "Workspace"
+                }
+              },
+              "howCreated": 1
+            },
+            {
+              "name": "Filterd7b81da2177a792ebf4c",
+              "type": "Categorical",
+              "expression": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Catalog - Workspace"
+                    }
+                  },
+                  "Property": "WorkspaceId"
+                }
+              },
+              "howCreated": 1
+            },
+            {
+              "name": "Filter2eebb8892c1c56c5dcb2",
+              "type": "Categorical",
+              "expression": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Catalog - Dataset"
+                    }
+                  },
+                  "Property": "Dataset"
+                }
+              },
+              "howCreated": 1
+            },
+            {
+              "name": "Filter351b7dbe040201b17139",
+              "type": "Categorical",
+              "expression": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Catalog - Dataset"
+                    }
+                  },
+                  "Property": "DatasetId"
+                }
+              },
+              "howCreated": 1
+            },
+            {
+              "name": "Filterd1443456218dad05c3c3",
+              "type": "Categorical",
+              "expression": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Catalog - Report"
+                    }
+                  },
+                  "Property": "Report"
+                }
+              },
+              "howCreated": 1
+            },
+            {
+              "name": "Filterc7d35af3d5107b3ae472",
+              "type": "Categorical",
+              "expression": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Catalog - Report"
+                    }
+                  },
+                  "Property": "ReportId"
+                }
+              },
+              "howCreated": 1
+            },
+            {
+              "name": "Filter5fcc9f550606dba277a3",
+              "type": "Categorical",
+              "expression": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Catalog - App"
+                    }
+                  },
+                  "Property": "App"
+                }
+              },
+              "howCreated": 1
+            },
+            {
+              "name": "Filter075b3ddf2bd35e5bb043",
+              "type": "Categorical",
+              "expression": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Catalog - App"
+                    }
+                  },
+                  "Property": "AppId"
+                }
+              },
+              "howCreated": 1
+            },
+            {
+              "name": "Filter97d085968946dac247e4",
+              "type": "Categorical",
+              "expression": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Catalog - Report"
+                    }
+                  },
+                  "Property": "Endorsement"
+                }
+              },
+              "howCreated": 1
+            },
+            {
+              "name": "Filter9f671b68cca863671669",
+              "type": "Categorical",
+              "expression": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Catalog - Dataset"
+                    }
+                  },
+                  "Property": "Endorsement"
+                }
+              },
+              "howCreated": 1
+            },
+            {
+              "name": "Filtere53db0cb62d8e08e5611",
+              "type": "Categorical",
+              "expression": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Catalog - Dataflow"
+                    }
+                  },
+                  "Property": "Dataflow"
+                }
+              },
+              "howCreated": 1
+            },
+            {
+              "name": "Filterf162ab706e8a20ddc087",
+              "type": "Categorical",
+              "expression": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Catalog - Dataflow"
+                    }
+                  },
+                  "Property": "DataflowId"
+                }
+              },
+              "howCreated": 1
+            },
+            {
+              "name": "Filterf6a64c5798770c3b753c",
+              "type": "Categorical",
+              "expression": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Catalog - Workspace"
+                    }
+                  },
+                  "Property": "Type"
+                }
+              },
+              "howCreated": 1
+            }
+          ]
+        },
+        "visualContainers": {}
+      }
+    },
+    "objects": {
+      "merge": {
+        "outspacePane": [
+          {
+            "properties": {
+              "expanded": {
+                "expr": {
+                  "Literal": {
+                    "Value": "false"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

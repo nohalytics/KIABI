@@ -1,0 +1,12 @@
+relationship e61a2793-2c5c-b862-0cf3-74b0fd85092b
+	fromColumn: Notifications.DatasetId
+	toColumn: 'Catalog - Dataset'.DatasetId
+
+relationship 9357848f-7d6c-d3eb-0b95-0216b2aae302
+	fromColumn: Notifications.NotificationStatus
+	toColumn: Status.Status
+
+relationship 07e19b1a-62d0-3ed5-59b6-26ba3e458992
+	fromColumn: Notifications.NotificationDate
+	toColumn: Calendar.Date
+

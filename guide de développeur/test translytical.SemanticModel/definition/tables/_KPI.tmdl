@@ -1,0 +1,124 @@
+table _KPI
+	lineageTag: 430bf9c1-e144-4af3-8228-56f99f9c0574
+
+	measure WorkdpaceId =
+			VAR _isFiltered = ISFILTERED ( 'Catalog - Dataset'[Workspace])
+			VAR _distinctCount = DISTINCTCOUNT ('Catalog - Dataset'[WorkspaceId])
+			RETURN
+			    IF (
+			      _isFiltered &&
+			         _distinctCount = 1,
+			        SELECTEDVALUE ('Catalog - Dataset'[WorkspaceId] ),
+			        BLANK ()
+			    )
+		lineageTag: 93c82a2b-70f2-4575-8b08-9fa4084d93d0
+
+	measure DatasetId =
+			-- VAR _isFiltered = ISFILTERED ( 'Catalog - Dataset'[DatasetId])
+			VAR _distinctCount = DISTINCTCOUNT ('Catalog - Dataset'[DatasetId])
+			RETURN
+			    IF (
+			      --  _isFiltered &&
+			         _distinctCount = 1,
+			        SELECTEDVALUE ('Catalog - Dataset'[DatasetId] ),
+			        BLANK ()
+			    )
+		lineageTag: c71d74ff-5be7-4223-80d9-6130328dc8d6
+
+	measure Createdby = USERPRINCIPALNAME()
+		lineageTag: 6f95fb13-a527-4797-9ad2-4df2bc9894f5
+
+	measure NotificationId =
+			
+			VAR _isFiltered = ISFILTERED (Notifications[NotificationId] )
+			VAR _distinctCount = DISTINCTCOUNT (Notifications[NotificationId] )
+			RETURN
+			    IF (
+			        _isFiltered && _distinctCount = 1,
+			        SELECTEDVALUE (Notifications[NotificationId] ),
+			        BLANK ()
+			    )
+		formatString: 0
+		lineageTag: 84777530-76d8-4413-990d-38a3a467b681
+
+	measure DatasetName =
+			-- VAR _isFiltered = ISFILTERED ( 'Catalog - Dataset'[DatasetId])
+			VAR _distinctCount = DISTINCTCOUNT ('Catalog - Dataset'[DatasetId])
+			RETURN
+			    IF (
+			      --  _isFiltered &&
+			         _distinctCount = 1,
+			        SELECTEDVALUE ('Catalog - Dataset'[Model] ),
+			        BLANK ()
+			    )
+		lineageTag: 7c279ddf-0874-4922-a073-e804c307251f
+
+	measure WorkdpaceName =
+			VAR _isFiltered = ISFILTERED ( 'Catalog - Dataset'[Workspace])
+			VAR _distinctCount = DISTINCTCOUNT ('Catalog - Dataset'[WorkspaceId])
+			RETURN
+			    IF (
+			      _isFiltered &&
+			         _distinctCount = 1,
+			        SELECTEDVALUE ('Catalog - Dataset'[Workspace] ),
+			        BLANK ()
+			    )
+		lineageTag: 1f396aad-29b5-417e-8753-c32305f95815
+
+	measure Status =
+			-- VAR _isFiltered = ISFILTERED ( 'Catalog - Dataset'[DatasetId])
+			VAR _distinctCount = DISTINCTCOUNT ('Status'[Status])
+			RETURN
+			    IF (
+			      --  _isFiltered &&
+			         _distinctCount = 1,
+			        SELECTEDVALUE ('Status'[Status] ),
+			        BLANK ()
+			    )
+		lineageTag: 81e3331a-526f-44f1-bc40-594baf5b67bd
+
+	measure 'Active messages' = CALCULATE(COUNTROWS(Notifications), Notifications[EndDate] = BLANK())
+		formatString: 0
+		lineageTag: 419f6ac3-0431-46cc-b9f3-35ad2e841f90
+
+	measure 'Closed messages' = CALCULATE(COUNTROWS(Notifications), Notifications[EndDate] <> BLANK())
+		formatString: 0
+		lineageTag: b5a07e11-7a49-4e7a-b89f-59cb8d2e06d9
+
+	measure Environment =
+			-- VAR _isFiltered = ISFILTERED ( 'Catalog - Dataset'[DatasetId])
+			VAR _distinctCount = DISTINCTCOUNT ('Catalog - Dataset'[DatasetId])
+			RETURN
+			    IF (
+			      --  _isFiltered &&
+			         _distinctCount = 1,
+			        SELECTEDVALUE ('Catalog - Dataset'[Environment] ),
+			        BLANK ()
+			    )
+		lineageTag: f004f804-3372-43ba-be0a-2afde1dc19c1
+
+	measure ClearedBy = USERPRINCIPALNAME()
+		lineageTag: ad0c62e8-dfb8-4351-bbad-cd0da84f471a
+
+	column _KPI
+		dataType: string
+		lineageTag: e094a2c7-b5bd-4c29-bb58-bd4106d90e76
+		summarizeBy: none
+		sourceColumn: _KPI
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _KPI = m
+		mode: import
+		source =
+				let
+				    Source = ""
+				in
+				    Source
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+

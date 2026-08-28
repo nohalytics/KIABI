@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "test translytical"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "cefb779c-ff15-ab40-4fa5-b5b162373b93"
+  }
+}

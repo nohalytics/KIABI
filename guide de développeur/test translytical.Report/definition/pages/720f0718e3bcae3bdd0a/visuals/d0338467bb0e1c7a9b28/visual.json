@@ -1,0 +1,300 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "d0338467bb0e1c7a9b28",
+  "position": {
+    "x": 32,
+    "y": 464.00000000000006,
+    "z": 3000,
+    "height": 239.99999999999997,
+    "width": 976,
+    "tabOrder": 3000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Notifications"
+                    }
+                  },
+                  "Property": "NotificationId"
+                }
+              },
+              "queryRef": "Notifications.NotificationId",
+              "nativeQueryRef": "NotificationId"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Notifications"
+                    }
+                  },
+                  "Property": "NotificationStatus"
+                }
+              },
+              "queryRef": "Notifications.NotificationStatus",
+              "nativeQueryRef": "NotificationStatus"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Notifications"
+                    }
+                  },
+                  "Property": "WorkspaceName"
+                }
+              },
+              "queryRef": "Notifications.WorkspaceName",
+              "nativeQueryRef": "Workspace",
+              "displayName": "Workspace"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Notifications"
+                    }
+                  },
+                  "Property": "DatasetName"
+                }
+              },
+              "queryRef": "Notifications.DatasetName",
+              "nativeQueryRef": "Dataset",
+              "displayName": "Dataset"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Notifications"
+                    }
+                  },
+                  "Property": "Notification"
+                }
+              },
+              "queryRef": "Notifications.Notification",
+              "nativeQueryRef": "Notification"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Notifications"
+                    }
+                  },
+                  "Property": "CreatedBy"
+                }
+              },
+              "queryRef": "Notifications.CreatedBy",
+              "nativeQueryRef": "CreatedBy"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Notifications"
+                    }
+                  },
+                  "Property": "NotificationDate"
+                }
+              },
+              "queryRef": "Notifications.NotificationDate",
+              "nativeQueryRef": "NotificationDate"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Notifications"
+                    }
+                  },
+                  "Property": "Link"
+                }
+              },
+              "queryRef": "Notifications.Link",
+              "nativeQueryRef": "Link"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "columnHeaders": [
+        {
+          "properties": {
+            "columnAdjustment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'fixedWidth'"
+                }
+              }
+            },
+            "defaultColumnWidth": {
+              "expr": {
+                "Literal": {
+                  "Value": "90D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "246.0432143451726D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Notifications.Notification"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "4D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Notifications.NotificationId"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "174.66931451332616D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Notifications.CreatedBy"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "127.82547285964431D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Notifications.NotificationDate"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "112.71307369549547D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Notifications.WorkspaceName"
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'List of active messages'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "e4e0590a0a30ff1c1be5",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Notifications"
+              }
+            },
+            "Property": "EndDate"
+          }
+        },
+        "type": "Advanced",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "n",
+              "Entity": "Notifications",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "Comparison": {
+                  "ComparisonKind": 0,
+                  "Left": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Source": "n"
+                        }
+                      },
+                      "Property": "EndDate"
+                    }
+                  },
+                  "Right": {
+                    "Literal": {
+                      "Value": "null"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "User"
+      }
+    ]
+  }
+}

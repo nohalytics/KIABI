@@ -1,0 +1,81 @@
+table 'Catalog - Dataset'
+	lineageTag: 0f192a80-ea3a-4fe4-97b9-efd75c829dbf
+
+	column Model
+		dataType: string
+		lineageTag: efe0ab1a-6968-49fb-9626-f5485837962c
+		summarizeBy: none
+		sourceColumn: Model
+
+		annotation SummarizationSetBy = Automatic
+
+	column WorkspaceId
+		dataType: string
+		isHidden
+		lineageTag: 44bf4020-21fe-4d01-9173-2ef55316d186
+		summarizeBy: none
+		sourceColumn: WorkspaceId
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column DatasetId
+		dataType: string
+		lineageTag: 2f75dfa3-97c5-412f-bddd-025e502272c3
+		summarizeBy: none
+		sourceColumn: DatasetId
+
+		annotation SummarizationSetBy = Automatic
+
+	column Workspace
+		dataType: string
+		lineageTag: 68f21fdf-70e4-40d6-9299-3773d0af1867
+		summarizeBy: none
+		sourceColumn: Workspace
+
+		annotation SummarizationSetBy = Automatic
+
+	column Environment
+		dataType: string
+		lineageTag: 3b361bbc-723a-4941-9693-6f673a745e93
+		summarizeBy: none
+		sourceColumn: Environment
+
+		annotation SummarizationSetBy = Automatic
+
+	column Domain
+		dataType: string
+		lineageTag: c7b461d8-f021-4263-9e3c-ec62d63f9ac3
+		summarizeBy: none
+		sourceColumn: Domain
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Catalog - Dataset-527a7071-6426-452b-abae-b174b2b4d7bc' = m
+		mode: import
+		queryGroup: Catalog
+		source =
+				let
+				    Source = #"Catalog - Dataset RAW",
+				    #"Removed Other Columns" = Table.SelectColumns(Source,{"WorkspaceId", "DatasetId", "Dataset", "Configured By", "Target Storage", "Is EffectiveIdentity Required", "Is EffectiveIdentity Roles Required", "Created On", "Content Provider Type", "sensitivityLabel", "Description", "Endorsement", "Certified By", "Schema Issues"}),
+				    #"Added Custom" = Table.AddColumn(#"Removed Other Columns", "Sensitivity Label", each if [sensitivityLabel] <> null then Text.Combine(Record.ToList([sensitivityLabel]), "|") else null),
+				    #"Removed Columns" = Table.RemoveColumns(#"Added Custom",{"sensitivityLabel"}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Removed Columns",{{"WorkspaceId", type text}, {"DatasetId", type text}, {"Dataset", type text}, {"Configured By", type text}, {"Target Storage", type text}, {"Created On", type datetime}, {"Content Provider Type", type text}, {"Description", type text}, {"Endorsement", type text}, {"Certified By", type text}, {"Schema Issues", type logical}, {"Sensitivity Label", type text}, {"Is EffectiveIdentity Required", type logical}, {"Is EffectiveIdentity Roles Required", type logical}}),
+				    #"Removed Other Columns1" = Table.SelectColumns(#"Changed Type",{"WorkspaceId", "DatasetId", "Dataset"}),
+				    #"Merged Queries" = Table.NestedJoin(#"Removed Other Columns1", {"WorkspaceId"}, #"Catalog - Workspace", {"WorkspaceId"}, "Catalog - Workspace", JoinKind.LeftOuter),
+				    #"Expanded Catalog - Workspace" = Table.ExpandTableColumn(#"Merged Queries", "Catalog - Workspace", {"Workspace", "Type", "State", "Is Dedicated Capacity (Y/N)", "Capacity", "Environment", "DomainName"}, {"Catalog - Workspace.Workspace", "Catalog - Workspace.Type", "Catalog - Workspace.State", "Catalog - Workspace.Is Dedicated Capacity (Y/N)", "Catalog - Workspace.Capacity", "Catalog - Workspace.Environment", "Catalog - Workspace.DomainName"}),
+				    #"Filtered Rows" = Table.SelectRows(#"Expanded Catalog - Workspace", each ([#"Catalog - Workspace.Type"] = "Workspace")),
+				    #"Filtered Rows1" = Table.SelectRows(#"Filtered Rows", each ([#"Catalog - Workspace.State"] = "Active") and ([#"Catalog - Workspace.Is Dedicated Capacity (Y/N)"] = true)),
+				    #"Renamed Columns" = Table.RenameColumns(#"Filtered Rows1",{{"Catalog - Workspace.Workspace", "Workspace"}}),
+				    #"Removed Columns1" = Table.RemoveColumns(#"Renamed Columns",{"Catalog - Workspace.Type", "Catalog - Workspace.State", "Catalog - Workspace.Is Dedicated Capacity (Y/N)", "Catalog - Workspace.Capacity"}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Removed Columns1",{{"Catalog - Workspace.Environment", "Environment"}, {"Catalog - Workspace.DomainName", "DomainName"}}),
+				    #"Filtered Rows2" = Table.SelectRows(#"Renamed Columns1", each not Text.Contains([Dataset], "Usage Metrics")),
+				    #"Renamed Columns2" = Table.RenameColumns(#"Filtered Rows2",{{"DomainName", "Domain"}, {"Dataset", "Model"}})
+				in
+				    #"Renamed Columns2"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+
