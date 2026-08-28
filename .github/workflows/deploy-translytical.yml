@@ -1,0 +1,35 @@
+name: Deploy Translytical Report
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_environment:
+        description: "Environnement cible"
+        required: true
+        type: choice
+        options:
+          - PRE
+          - PRO
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le code du repo
+        uses: actions/checkout@v4
+
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installer fabric-cicd
+        run: pip install fabric-cicd
+
+      - name: Déployer vers Fabric
+        env:
+          FABRIC_TENANT_ID: ${{ secrets.FABRIC_TENANT_ID }}
+          FABRIC_CLIENT_ID: ${{ secrets.FABRIC_CLIENT_ID }}
+          FABRIC_CLIENT_SECRET: ${{ secrets.FABRIC_CLIENT_SECRET }}
+          TARGET_ENV: ${{ inputs.target_environment }}
+        run: python scripts/deploy_fabric.py
