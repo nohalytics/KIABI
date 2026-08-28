@@ -23,7 +23,7 @@ workspace_ids = {
 
 # Chemin robuste vers le dossier "guide de développeur", peu importe le répertoire de travail courant
 script_dir = os.path.dirname(os.path.abspath(__file__))
-repository_directory = os.path.join(script_dir, "..", "guide de développeur")
+repository_directory = os.path.abspath(os.path.join(script_dir, "..", "guide de développeur"))
 
 target_workspace = FabricWorkspace(
     workspace_id=workspace_ids[target_env],
