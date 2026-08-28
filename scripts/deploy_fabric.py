@@ -19,14 +19,13 @@ workspace_ids = {
 }
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
-# Chemin mis à jour vers le nouveau sous-dossier dédié
 repository_directory = os.path.abspath(os.path.join(script_dir, "..", "guide de développeur", "Translytical"))
 
 target_workspace = FabricWorkspace(
     workspace_id=workspace_ids[target_env],
     environment=target_env,
     repository_directory=repository_directory,
-    item_type_in_scope=["Report"],
+    item_type_in_scope=["Report", "SemanticModel"],
     token_credential=token_credential,
 )
 
