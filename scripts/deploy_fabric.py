@@ -17,7 +17,7 @@ token_credential = ClientSecretCredential(
 
 # Mapping environnement → ID du workspace cible
 workspace_ids = {
-    "PRE": "5a2bdff8-ba6f-4e9e-a78b-0fa4bb0134df/",
+    "PRE": "5a2bdff8-ba6f-4e9e-a78b-0fa4bb0134df",
     "PRO": "236a6aaa-eb37-463a-a7a4-81655beaf427",
 }
 
