@@ -31,3 +31,9 @@ find_replace:
           PRO: "sqldb_report_status-a7befedc-ad03-4e5d-9deb-13c9f2b6e2e6"
       item_type: "SemanticModel"
       file_path: "**/*.tmdl"
+
+semantic_model_binding:
+    default:
+        connection_id:
+            PRE: "9af153ac-3ca1-473a-811e-eda636497383"
+            PRO: "20b305e1-6b63-4c83-93b9-df03f8d473dd"
