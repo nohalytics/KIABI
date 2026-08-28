@@ -10,8 +10,8 @@ find_replace:
 
     - find_value: "1f06d1e0-04b5-472b-ba53-87d3bcfdcfec"
       replace_value:
-          PRE: "dca9d883-8fce-46cb-9586-25772b5acebd"
-          PRO: "ef7f2142-8e84-48a8-91c2-8c9f2ddefa29"
+          PRE: "0bdc5a7c-c7b3-429a-bec3-bb814e08a47a"
+          PRO: "ce3531a5-f590-438a-86cb-d5a752d16d58"
       item_type: "Report"
       file_path:
           - "test translytical.Report/definition/pages/720f0718e3bcae3bdd0a/visuals/dc0b81d6b1d3fadc80b4/visual.json"
