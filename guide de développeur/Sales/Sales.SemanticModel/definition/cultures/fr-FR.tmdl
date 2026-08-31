@@ -1,6 +1,0 @@
-cultureInfo fr-FR
-	translations
-		model Model
-			table Product
-				caption: Produit
-
