@@ -15,6 +15,8 @@ annotation __TEdtr = 1
 
 annotation TranslationsBuilder = Version:2.2-Updated:2025-07-07
 
+annotation PBI_ProTooling = ["DevMode"]
+
 ref table 'Internet Sales'
 ref table Products
 ref table _Measures

@@ -33,20 +33,7 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "internet sale": {
-			            "Type": "Noun",
-			            "State": "Generated"
-			          }
-			        },
-			        {
 			          "sale": {
-			            "State": "Generated",
-			            "Weight": 0.97
-			          }
-			        },
-			        {
-			          "sale": {
-			            "Type": "Noun",
 			            "State": "Generated",
 			            "Weight": 0.97
 			          }
@@ -171,12 +158,6 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "product key": {
-			            "Type": "Noun",
-			            "State": "Generated"
-			          }
-			        },
-			        {
 			          "ProductKey": {
 			            "Type": "Noun",
 			            "State": "Generated",
@@ -185,13 +166,6 @@ cultureInfo en-US
 			        },
 			        {
 			          "key": {
-			            "State": "Generated",
-			            "Weight": 0.97
-			          }
-			        },
-			        {
-			          "key": {
-			            "Type": "Noun",
 			            "State": "Generated",
 			            "Weight": 0.97
 			          }
@@ -316,12 +290,6 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "order date key": {
-			            "Type": "Noun",
-			            "State": "Generated"
-			          }
-			        },
-			        {
 			          "OrderDateKey": {
 			            "Type": "Noun",
 			            "State": "Generated",
@@ -335,21 +303,7 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "key": {
-			            "Type": "Noun",
-			            "State": "Generated",
-			            "Weight": 0.97
-			          }
-			        },
-			        {
 			          "date key": {
-			            "State": "Generated",
-			            "Weight": 0.97
-			          }
-			        },
-			        {
-			          "date key": {
-			            "Type": "Noun",
 			            "State": "Generated",
 			            "Weight": 0.97
 			          }
@@ -474,12 +428,6 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "due date key": {
-			            "Type": "Noun",
-			            "State": "Generated"
-			          }
-			        },
-			        {
 			          "DueDateKey": {
 			            "Type": "Noun",
 			            "State": "Generated",
@@ -493,21 +441,7 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "key": {
-			            "Type": "Noun",
-			            "State": "Generated",
-			            "Weight": 0.97
-			          }
-			        },
-			        {
 			          "date key": {
-			            "State": "Generated",
-			            "Weight": 0.97
-			          }
-			        },
-			        {
-			          "date key": {
-			            "Type": "Noun",
 			            "State": "Generated",
 			            "Weight": 0.97
 			          }
@@ -632,12 +566,6 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "ship date key": {
-			            "Type": "Noun",
-			            "State": "Generated"
-			          }
-			        },
-			        {
 			          "ShipDateKey": {
 			            "Type": "Noun",
 			            "State": "Generated",
@@ -651,21 +579,7 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "key": {
-			            "Type": "Noun",
-			            "State": "Generated",
-			            "Weight": 0.97
-			          }
-			        },
-			        {
 			          "date key": {
-			            "State": "Generated",
-			            "Weight": 0.97
-			          }
-			        },
-			        {
-			          "date key": {
-			            "Type": "Noun",
 			            "State": "Generated",
 			            "Weight": 0.97
 			          }
@@ -790,12 +704,6 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "customer key": {
-			            "Type": "Noun",
-			            "State": "Generated"
-			          }
-			        },
-			        {
 			          "CustomerKey": {
 			            "Type": "Noun",
 			            "State": "Generated",
@@ -804,13 +712,6 @@ cultureInfo en-US
 			        },
 			        {
 			          "key": {
-			            "State": "Generated",
-			            "Weight": 0.97
-			          }
-			        },
-			        {
-			          "key": {
-			            "Type": "Noun",
 			            "State": "Generated",
 			            "Weight": 0.97
 			          }
@@ -935,12 +836,6 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "currency key": {
-			            "Type": "Noun",
-			            "State": "Generated"
-			          }
-			        },
-			        {
 			          "CurrencyKey": {
 			            "Type": "Noun",
 			            "State": "Generated",
@@ -949,13 +844,6 @@ cultureInfo en-US
 			        },
 			        {
 			          "key": {
-			            "State": "Generated",
-			            "Weight": 0.97
-			          }
-			        },
-			        {
-			          "key": {
-			            "Type": "Noun",
 			            "State": "Generated",
 			            "Weight": 0.97
 			          }
@@ -1080,12 +968,6 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "sales territory key": {
-			            "Type": "Noun",
-			            "State": "Generated"
-			          }
-			        },
-			        {
 			          "sale territory key": {
 			            "Type": "Noun",
 			            "State": "Generated",
@@ -1106,21 +988,7 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "key": {
-			            "Type": "Noun",
-			            "State": "Generated",
-			            "Weight": 0.97
-			          }
-			        },
-			        {
 			          "territory key": {
-			            "State": "Generated",
-			            "Weight": 0.97
-			          }
-			        },
-			        {
-			          "territory key": {
-			            "Type": "Noun",
 			            "State": "Generated",
 			            "Weight": 0.97
 			          }
@@ -1235,12 +1103,6 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "order number": {
-			            "Type": "Noun",
-			            "State": "Generated"
-			          }
-			        },
-			        {
 			          "order no": {
 			            "Type": "Noun",
 			            "State": "Suggested",
@@ -1266,12 +1128,6 @@ cultureInfo en-US
 			      "Terms": [
 			        {
 			          "order quantity": {
-			            "State": "Generated"
-			          }
-			        },
-			        {
-			          "order quantity": {
-			            "Type": "Noun",
 			            "State": "Generated"
 			          }
 			        },
@@ -1372,12 +1228,6 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "total product cost": {
-			            "Type": "Noun",
-			            "State": "Generated"
-			          }
-			        },
-			        {
 			          "TotalProductCost": {
 			            "Type": "Noun",
 			            "State": "Generated",
@@ -1391,21 +1241,7 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "cost": {
-			            "Type": "Noun",
-			            "State": "Generated",
-			            "Weight": 0.97
-			          }
-			        },
-			        {
 			          "product cost": {
-			            "State": "Generated",
-			            "Weight": 0.97
-			          }
-			        },
-			        {
-			          "product cost": {
-			            "Type": "Noun",
 			            "State": "Generated",
 			            "Weight": 0.97
 			          }
@@ -1530,12 +1366,6 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "sales amount": {
-			            "Type": "Noun",
-			            "State": "Generated"
-			          }
-			        },
-			        {
 			          "sale amount": {
 			            "Type": "Noun",
 			            "State": "Generated",
@@ -1639,12 +1469,6 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "unit price": {
-			            "Type": "Noun",
-			            "State": "Generated"
-			          }
-			        },
-			        {
 			          "UnitPrice": {
 			            "Type": "Noun",
 			            "State": "Generated",
@@ -1653,13 +1477,6 @@ cultureInfo en-US
 			        },
 			        {
 			          "price": {
-			            "State": "Generated",
-			            "Weight": 0.97
-			          }
-			        },
-			        {
-			          "price": {
-			            "Type": "Noun",
 			            "State": "Generated",
 			            "Weight": 0.97
 			          }
@@ -1780,12 +1597,6 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "product": {
-			            "Type": "Noun",
-			            "State": "Generated"
-			          }
-			        },
-			        {
 			          "artifact": {
 			            "Type": "Noun",
 			            "State": "Suggested",
@@ -1845,12 +1656,6 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "product key": {
-			            "Type": "Noun",
-			            "State": "Generated"
-			          }
-			        },
-			        {
 			          "ProductKey": {
 			            "Type": "Noun",
 			            "State": "Generated",
@@ -1859,13 +1664,6 @@ cultureInfo en-US
 			        },
 			        {
 			          "key": {
-			            "State": "Generated",
-			            "Weight": 0.97
-			          }
-			        },
-			        {
-			          "key": {
-			            "Type": "Noun",
 			            "State": "Generated",
 			            "Weight": 0.97
 			          }
@@ -1987,12 +1785,6 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "color": {
-			            "Type": "Noun",
-			            "State": "Generated"
-			          }
-			        },
-			        {
 			          "hue": {
 			            "Type": "Noun",
 			            "State": "Suggested",
@@ -2051,6 +1843,16 @@ cultureInfo en-US
 			            },
 			            "Weight": 0.476
 			          }
+			        },
+			        {
+			          "Couleur": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
 			        }
 			      ]
 			    },
@@ -2069,12 +1871,6 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "products hierarchy": {
-			            "Type": "Noun",
-			            "State": "Generated"
-			          }
-			        },
-			        {
 			          "product hierarchy": {
 			            "Type": "Noun",
 			            "State": "Generated",
@@ -2083,13 +1879,6 @@ cultureInfo en-US
 			        },
 			        {
 			          "hierarchy": {
-			            "State": "Generated",
-			            "Weight": 0.97
-			          }
-			        },
-			        {
-			          "hierarchy": {
-			            "Type": "Noun",
 			            "State": "Generated",
 			            "Weight": 0.97
 			          }
@@ -2212,12 +2001,6 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "color": {
-			            "Type": "Noun",
-			            "State": "Generated"
-			          }
-			        },
-			        {
 			          "hue": {
 			            "Type": "Noun",
 			            "State": "Suggested",
@@ -2295,20 +2078,7 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "english product name": {
-			            "Type": "Noun",
-			            "State": "Generated"
-			          }
-			        },
-			        {
 			          "name": {
-			            "State": "Generated",
-			            "Weight": 0.97
-			          }
-			        },
-			        {
-			          "name": {
-			            "Type": "Noun",
 			            "State": "Generated",
 			            "Weight": 0.97
 			          }
@@ -2327,21 +2097,7 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "english product": {
-			            "Type": "Noun",
-			            "State": "Generated",
-			            "Weight": 0.97
-			          }
-			        },
-			        {
 			          "product name": {
-			            "State": "Generated",
-			            "Weight": 0.97
-			          }
-			        },
-			        {
-			          "product name": {
-			            "Type": "Noun",
 			            "State": "Generated",
 			            "Weight": 0.97
 			          }
@@ -2463,12 +2219,6 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "_measure": {
-			            "Type": "Noun",
-			            "State": "Generated"
-			          }
-			        },
-			        {
 			          "_ degree": {
 			            "Type": "Noun",
 			            "State": "Suggested",
@@ -2568,12 +2318,6 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "_measure": {
-			            "Type": "Noun",
-			            "State": "Generated"
-			          }
-			        },
-			        {
 			          "_ degree": {
 			            "Type": "Noun",
 			            "State": "Suggested",
@@ -2668,12 +2412,6 @@ cultureInfo en-US
 			          "sales": {
 			            "State": "Generated"
 			          }
-			        },
-			        {
-			          "sales": {
-			            "Type": "Noun",
-			            "State": "Generated"
-			          }
 			        }
 			      ]
 			    },
@@ -2688,12 +2426,6 @@ cultureInfo en-US
 			      "Terms": [
 			        {
 			          "culture": {
-			            "State": "Generated"
-			          }
-			        },
-			        {
-			          "culture": {
-			            "Type": "Noun",
 			            "State": "Generated"
 			          }
 			        },
@@ -2754,33 +2486,13 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "end of month": {
-			            "Type": "Noun",
-			            "State": "Generated"
-			          }
-			        },
-			        {
 			          "date": {
 			            "State": "Generated",
 			            "Weight": 0.7
 			          }
 			        },
 			        {
-			          "date": {
-			            "Type": "Noun",
-			            "State": "Generated",
-			            "Weight": 0.7
-			          }
-			        },
-			        {
 			          "end": {
-			            "State": "Generated",
-			            "Weight": 0.97
-			          }
-			        },
-			        {
-			          "end": {
-			            "Type": "Noun",
 			            "State": "Generated",
 			            "Weight": 0.97
 			          }
@@ -2905,20 +2617,7 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "localized label": {
-			            "Type": "Noun",
-			            "State": "Generated"
-			          }
-			        },
-			        {
 			          "label": {
-			            "State": "Generated",
-			            "Weight": 0.97
-			          }
-			        },
-			        {
-			          "label": {
-			            "Type": "Noun",
 			            "State": "Generated",
 			            "Weight": 0.97
 			          }
@@ -3023,12 +2722,6 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "unused": {
-			            "Type": "Noun",
-			            "State": "Generated"
-			          }
-			        },
-			        {
 			          "idle": {
 			            "Type": "Noun",
 			            "State": "Suggested",
@@ -3124,12 +2817,6 @@ cultureInfo en-US
 			      "Terms": [
 			        {
 			          "my report title": {
-			            "State": "Generated"
-			          }
-			        },
-			        {
-			          "my report title": {
-			            "Type": "Noun",
 			            "State": "Generated"
 			          }
 			        },
@@ -3253,12 +2940,6 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "my button caption": {
-			            "Type": "Noun",
-			            "State": "Generated"
-			          }
-			        },
-			        {
 			          "my button slogan": {
 			            "Type": "Noun",
 			            "State": "Suggested",
@@ -3378,12 +3059,6 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "my visual title": {
-			            "Type": "Noun",
-			            "State": "Generated"
-			          }
-			        },
-			        {
 			          "my visual designation": {
 			            "Type": "Noun",
 			            "State": "Suggested",
@@ -3461,12 +3136,6 @@ cultureInfo en-US
 			          "this is the sales amount by the color attribute": {
 			            "State": "Generated"
 			          }
-			        },
-			        {
-			          "this is the sales amount by the color attribute": {
-			            "Type": "Noun",
-			            "State": "Generated"
-			          }
 			        }
 			      ]
 			    },
@@ -3480,12 +3149,6 @@ cultureInfo en-US
 			      "Terms": [
 			        {
 			          "translated localized label": {
-			            "State": "Generated"
-			          }
-			        },
-			        {
-			          "translated localized label": {
-			            "Type": "Noun",
 			            "State": "Generated"
 			          }
 			        },
@@ -3545,12 +3208,6 @@ cultureInfo en-US
 			      "Terms": [
 			        {
 			          "unused": {
-			            "State": "Generated"
-			          }
-			        },
-			        {
-			          "unused": {
-			            "Type": "Noun",
 			            "State": "Generated"
 			          }
 			        },
@@ -3647,12 +3304,6 @@ cultureInfo en-US
 			      "Terms": [
 			        {
 			          "my report title label": {
-			            "State": "Generated"
-			          }
-			        },
-			        {
-			          "my report title label": {
-			            "Type": "Noun",
 			            "State": "Generated"
 			          }
 			        },
@@ -3773,12 +3424,6 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "my button caption label": {
-			            "Type": "Noun",
-			            "State": "Generated"
-			          }
-			        },
-			        {
 			          "my button caption sticker": {
 			            "Type": "Noun",
 			            "State": "Suggested",
@@ -3891,12 +3536,6 @@ cultureInfo en-US
 			      "Terms": [
 			        {
 			          "my visual title label": {
-			            "State": "Generated"
-			          }
-			        },
-			        {
-			          "my visual title label": {
-			            "Type": "Noun",
 			            "State": "Generated"
 			          }
 			        },
@@ -4015,11 +3654,26 @@ cultureInfo en-US
 			          "this is the sales amount by the color attribute label": {
 			            "State": "Generated"
 			          }
-			        },
+			        }
+			      ]
+			    },
+			    "calendar.year": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Calendar",
+			          "ConceptualProperty": "Year"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
 			        {
-			          "this is the sales amount by the color attribute label": {
-			            "Type": "Noun",
-			            "State": "Generated"
+			          "Year": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
 			          }
 			        }
 			      ]
