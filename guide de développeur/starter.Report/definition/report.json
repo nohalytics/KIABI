@@ -1,0 +1,96 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.3.0/schema.json",
+  "themeCollection": {
+    "baseTheme": {
+      "name": "CY24SU10",
+      "reportVersionAtImport": {
+        "visual": "1.8.95",
+        "report": "2.0.95",
+        "page": "1.3.95"
+      },
+      "type": "SharedResources"
+    },
+    "customTheme": {
+      "name": "Kiabi_Power_BI_Theme_2026_v1.56060191228056095.json",
+      "reportVersionAtImport": {
+        "visual": "2.10.0",
+        "report": "3.4.0",
+        "page": "2.3.1"
+      },
+      "type": "RegisteredResources"
+    }
+  },
+  "objects": {
+    "section": [
+      {
+        "properties": {
+          "verticalAlignment": {
+            "expr": {
+              "Literal": {
+                "Value": "'Top'"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "resourcePackages": [
+    {
+      "name": "SharedResources",
+      "type": "SharedResources",
+      "items": [
+        {
+          "name": "CY24SU10",
+          "path": "BaseThemes/CY24SU10.json",
+          "type": "BaseTheme"
+        }
+      ]
+    },
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "background-left-filters9322459938247633.svg",
+          "path": "background-left-filters9322459938247633.svg",
+          "type": "Image"
+        },
+        {
+          "name": "background-left-top-filters5359693319436796.svg",
+          "path": "background-left-top-filters5359693319436796.svg",
+          "type": "Image"
+        },
+        {
+          "name": "background-no-filters602863553378349.svg",
+          "path": "background-no-filters602863553378349.svg",
+          "type": "Image"
+        },
+        {
+          "name": "background-top-filters-2-lines5796994082150372.svg",
+          "path": "background-top-filters-2-lines5796994082150372.svg",
+          "type": "Image"
+        },
+        {
+          "name": "home-342246305670550544.png",
+          "path": "home-342246305670550544.png",
+          "type": "Image"
+        },
+        {
+          "name": "Kiabi_Power_BI_Theme_2026_v1.56060191228056095.json",
+          "path": "Kiabi_Power_BI_Theme_2026_v1.56060191228056095.json",
+          "type": "CustomTheme"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "useStylableVisualContainerHeader": true,
+    "exportDataMode": "AllowSummarized",
+    "defaultDrillFilterOtherVisuals": true,
+    "allowChangeFilterTypes": true,
+    "useEnhancedTooltips": true,
+    "filterPaneHiddenInEditMode": true,
+    "useDefaultAggregateDisplayName": true
+  }
+}

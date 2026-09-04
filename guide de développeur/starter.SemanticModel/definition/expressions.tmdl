@@ -1,0 +1,16 @@
+/// Enter the name of the semantic model, which is equivalent to the name of this current file
+expression P_Model_Name = "starter" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 0995ff8a-385b-49ab-8694-0ba8ba3547a4
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
+/// DEV, PRE or PRO
+expression P_Env = "DEV" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 8d2ffee1-b44d-4767-bf7a-3da633c18331
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+

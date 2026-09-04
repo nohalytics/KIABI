@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Status icon"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "950ad043-f060-9ac6-4f8d-a6d57f05fbb1"
+  }
+}

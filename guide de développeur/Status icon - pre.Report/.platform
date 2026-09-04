@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Status icon - pre"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "6c7b68da-412f-9865-427f-6f74b9fd3829"
+  }
+}
