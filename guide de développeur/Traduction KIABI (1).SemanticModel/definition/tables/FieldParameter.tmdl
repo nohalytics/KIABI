@@ -1,0 +1,57 @@
+table FieldParameter
+	lineageTag: 95017b61-ef67-4dc6-b01b-0f0397f1e7f9
+
+	column FieldParameter
+		lineageTag: 3bc1354e-beb3-40ec-8895-5ebab723a75e
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'FieldParameter Order'
+
+		relatedColumnDetails
+			groupByColumn: 'FieldParameter Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'FieldParameter Fields'
+		isHidden
+		lineageTag: 28fec47e-ed6d-4037-ab5d-f02621047dcf
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'FieldParameter Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'FieldParameter Order'
+		isHidden
+		formatString: 0
+		lineageTag: 4139d1da-1072-4955-a3ad-e49f50515587
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Language
+		lineageTag: 55dcb35a-1b3f-41e1-b2ef-d3bc8e0262e6
+		summarizeBy: none
+		sourceColumn: [Value4]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FieldParameter = calculated
+		mode: import
+		source =
+				{
+				    ("Color", NAMEOF('Products'[Color]), 0,"English"),
+				    ("Couleur", NAMEOF('Products'[Color]), 0,"French"),
+				    ("Year", NAMEOF('Calendar'[Year]), 1,"English"),
+				    ("Année", NAMEOF('Calendar'[Year]), 1,"French")
+				}
+
+	annotation PBI_Id = e0601658c5f343faaa5419c8615917f3
+
