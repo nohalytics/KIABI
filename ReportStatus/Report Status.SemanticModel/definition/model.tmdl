@@ -1,0 +1,48 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-GB
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+queryGroup Calendar
+
+	annotation PBI_QueryGroupOrder = 0
+
+queryGroup Catalog
+
+	annotation PBI_QueryGroupOrder = 2
+
+queryGroup 'Global Parameters'
+
+	annotation PBI_QueryGroupOrder = 4
+
+queryGroup 'Files - BlobStorage'
+
+	annotation PBI_QueryGroupOrder = 5
+
+queryGroup Domains
+
+	annotation PBI_QueryGroupOrder = 8
+
+queryGroup Capacity
+
+	annotation PBI_QueryGroupOrder = 7
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["Catalog-Files","Catalog-Snapshots","Catalog-Scans","Catalog - Workspaces RAW","Catalog - Dataset RAW","Catalog - Dataset","FilesProxy","Catalog - Workspace","DataLocation","BlobStorageContainer","TimezoneOffset","BlobStorageName","BlobStorageContainerName","Catalog-Files from BlobStorage","Capacities","Domains","_KPI","Notifications","Status"]
+
+annotation __TEdtr = 1
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table 'Catalog - Dataset'
+ref table _KPI
+ref table Notifications
+ref table Status
+ref table Calendar
+
+ref cultureInfo en-US
+

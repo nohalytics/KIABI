@@ -1,0 +1,144 @@
+table _KPI
+	lineageTag: 430bf9c1-e144-4af3-8228-56f99f9c0574
+
+	measure WorkdpaceId =
+			VAR _isFiltered = ISFILTERED ( 'Catalog - Dataset'[Workspace])
+			VAR _distinctCount = DISTINCTCOUNT ('Catalog - Dataset'[WorkspaceId])
+			RETURN
+			    IF (
+			      _isFiltered &&
+			         _distinctCount = 1,
+			        SELECTEDVALUE ('Catalog - Dataset'[WorkspaceId] ),
+			        BLANK ()
+			    )
+		lineageTag: 93c82a2b-70f2-4575-8b08-9fa4084d93d0
+
+	measure DatasetId =
+			-- VAR _isFiltered = ISFILTERED ( 'Catalog - Dataset'[DatasetId])
+			VAR _distinctCount = DISTINCTCOUNT ('Catalog - Dataset'[DatasetId])
+			RETURN
+			    IF (
+			      --  _isFiltered &&
+			         _distinctCount = 1,
+			        SELECTEDVALUE ('Catalog - Dataset'[DatasetId] ),
+			        BLANK ()
+			    )
+		lineageTag: c71d74ff-5be7-4223-80d9-6130328dc8d6
+
+	measure Createdby = USERPRINCIPALNAME()
+		lineageTag: 6f95fb13-a527-4797-9ad2-4df2bc9894f5
+
+	measure NotificationId =
+			
+			VAR _isFiltered = ISFILTERED (Notifications[NotificationId] )
+			VAR _distinctCount = DISTINCTCOUNT (Notifications[NotificationId] )
+			RETURN
+			    IF (
+			        _isFiltered && _distinctCount = 1,
+			        SELECTEDVALUE (Notifications[NotificationId] ),
+			        BLANK ()
+			    )
+		formatString: 0
+		lineageTag: 84777530-76d8-4413-990d-38a3a467b681
+
+	measure DatasetName =
+			-- VAR _isFiltered = ISFILTERED ( 'Catalog - Dataset'[DatasetId])
+			VAR _distinctCount = DISTINCTCOUNT ('Catalog - Dataset'[DatasetId])
+			RETURN
+			    IF (
+			      --  _isFiltered &&
+			         _distinctCount = 1,
+			        SELECTEDVALUE ('Catalog - Dataset'[Model] ),
+			        BLANK ()
+			    )
+		lineageTag: 7c279ddf-0874-4922-a073-e804c307251f
+
+	measure WorkdpaceName =
+			VAR _isFiltered = ISFILTERED ( 'Catalog - Dataset'[Workspace])
+			VAR _distinctCount = DISTINCTCOUNT ('Catalog - Dataset'[WorkspaceId])
+			RETURN
+			    IF (
+			      _isFiltered &&
+			         _distinctCount = 1,
+			        SELECTEDVALUE ('Catalog - Dataset'[Workspace] ),
+			        BLANK ()
+			    )
+		lineageTag: 1f396aad-29b5-417e-8753-c32305f95815
+
+	measure Status =
+			-- VAR _isFiltered = ISFILTERED ( 'Catalog - Dataset'[DatasetId])
+			VAR _distinctCount = DISTINCTCOUNT ('Status'[Status])
+			RETURN
+			    IF (
+			      --  _isFiltered &&
+			         _distinctCount = 1,
+			        SELECTEDVALUE ('Status'[Status] ),
+			        BLANK ()
+			    )
+		lineageTag: 81e3331a-526f-44f1-bc40-594baf5b67bd
+
+	measure 'Active messages' = CALCULATE(COUNTROWS(Notifications), Notifications[EndDate] = BLANK())
+		formatString: 0
+		lineageTag: 419f6ac3-0431-46cc-b9f3-35ad2e841f90
+
+	measure 'Closed messages' = CALCULATE(COUNTROWS(Notifications), Notifications[EndDate] <> BLANK())
+		formatString: 0
+		lineageTag: b5a07e11-7a49-4e7a-b89f-59cb8d2e06d9
+
+	measure Environment =
+			-- VAR _isFiltered = ISFILTERED ( 'Catalog - Dataset'[DatasetId])
+			VAR _distinctCount = DISTINCTCOUNT ('Catalog - Dataset'[DatasetId])
+			RETURN
+			    IF (
+			      --  _isFiltered &&
+			         _distinctCount = 1,
+			        SELECTEDVALUE ('Catalog - Dataset'[Environment] ),
+			        BLANK ()
+			    )
+		lineageTag: f004f804-3372-43ba-be0a-2afde1dc19c1
+
+	measure ClearedBy = USERPRINCIPALNAME()
+		lineageTag: ad0c62e8-dfb8-4351-bbad-cd0da84f471a
+
+	measure 'Status Icon' = ```
+			var __status = max('Status'[Status])
+			return
+			SWITCH(
+			    TRUE(),
+			    __status = "Warning", 
+			"data:image/svg+xml;utf8," &
+			"<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M18 7.72594C16.2866 4.7221 15.2162 3.13469 13.8569 2.59099C12.6649 2.1142 11.3352 2.1142 10.1431 2.59099C8.50144 3.24765 7.28113 5.42679 4.84049 9.78506C2.49449 13.9743 1.3215 16.069 1.59194 17.7805C1.78851 19.0246 2.44733 20.1486 3.4367 20.9279C4.79789 22.0001 7.19861 22.0001 12 22.0001C16.8015 22.0001 19.2022 22.0001 20.5634 20.9279C21.5528 20.1486 22.2116 19.0246 22.4082 17.7805C22.6261 16.4012 21.9066 14.773 20.391 12.0001M12 13V9M12.5 16.5C12.5 16.7761 12.2761 17 12 17C11.7239 17 11.5 16.7761 11.5 16.5M12.5 16.5C12.5 16.2239 12.2761 16 12 16C11.7239 16 11.5 16.2239 11.5 16.5M12.5 16.5H11.5' stroke='#CF4B00' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg>"
+			,
+			    __status= "Error", 
+			
+			"data:image/svg+xml;utf8," &
+			"<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M17.4905 3.5C16.8504 2.88426 16.4028 2.52356 15.8739 2.30448C15.1388 2 14.3213 2 12.6863 2H11.3137C9.67871 2 8.8612 2 8.12612 2.30448C7.39104 2.60896 6.81298 3.18702 5.65685 4.34315L4.34315 5.65685C3.18702 6.81298 2.60896 7.39104 2.30448 8.12612C2 8.8612 2 9.67871 2 11.3137V12.6863C2 14.3213 2 15.1388 2.30448 15.8739C2.60896 16.609 3.18702 17.187 4.34315 18.3431L5.65685 19.6569C6.81298 20.813 7.39104 21.391 8.12612 21.6955C8.8612 22 9.67871 22 11.3137 22H12.6863C14.3213 22 15.1388 22 15.8739 21.6955C16.609 21.391 17.187 20.813 18.3431 19.6569L19.6569 18.3431C20.813 17.187 21.391 16.609 21.6955 15.8739C22 15.1388 22 14.3213 22 12.6863V11.3137C22 9.67871 22 8.8612 21.6955 8.12612C21.4754 7.59461 21.1122 7.1452 20.4909 6.5M9 15L12 12M12 12L15 9M12 12L9 9M12 12L15 15' stroke='#DB1527' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg>",
+			"data:image/svg+xml;utf8," &
+			"<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M17.5 3.64702C15.9221 2.60596 14.0318 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 10.3814 21.6154 8.85259 20.9327 7.5M12 16V11M12.5 8C12.5 8.27614 12.2761 8.5 12 8.5C11.7239 8.5 11.5 8.27614 11.5 8M12.5 8C12.5 7.72386 12.2761 7.5 12 7.5C11.7239 7.5 11.5 7.72386 11.5 8M12.5 8H11.5' stroke='black' stroke-opacity='0' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg>"
+			
+			)
+			```
+		lineageTag: e9a9c492-8d27-40b1-8784-90b5223255c2
+
+	column _KPI
+		dataType: string
+		lineageTag: e094a2c7-b5bd-4c29-bb58-bd4106d90e76
+		summarizeBy: none
+		sourceColumn: _KPI
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _KPI = m
+		mode: import
+		source =
+				let
+				    Source = ""
+				in
+				    Source
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+

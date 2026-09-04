@@ -1,0 +1,240 @@
+expression Catalog-Files =
+		let
+		    Source =  FilesProxy[CatalogFiles]
+		in
+		    Source
+	lineageTag: 270371ea-80c5-4265-9b38-4828c10ee135
+	queryGroup: Catalog
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Exception
+
+/// Location of the data files.
+/// BlobStorage Account Name
+/// or
+/// Disk Path
+expression DataLocation = "stordatafabric001" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 636cbe9e-3657-49f8-92f3-c757493d70a1
+	queryGroup: 'Global Parameters'
+
+	annotation PBI_ResultType = Text
+
+	annotation PBI_NavigationStepName = Navigation
+
+/// Timezone offset to be applied on the activity logs timestamps.
+/// Default: 0 (UTC)
+expression TimezoneOffset = 0 meta [IsParameterQuery=true, Type="Number", IsParameterQueryRequired=false]
+	lineageTag: 0bf75fe4-bfc6-4c90-8e0b-00433ad78c6f
+	queryGroup: 'Global Parameters'
+
+	annotation PBI_ResultType = Number
+
+	annotation PBI_NavigationStepName = Navigation
+
+expression BlobStorageName = #"DataLocation"
+	lineageTag: 0ee565cd-1af2-4a90-a12e-5cd1f5d40b2d
+	queryGroup: 'Files - BlobStorage'
+
+	annotation PBI_ResultType = Text
+
+	annotation PBI_NavigationStepName = Navigation
+
+expression 'Catalog-Files from BlobStorage' =
+		let
+		    Source = AzureStorage.Blobs(BlobStorageName),
+		    pbicatalog1 = Source{[Name=BlobStorageContainerName]}[Data],
+		    #"Filtered Rows" = Table.SelectRows(pbicatalog1, each [Extension] <> null and [Extension] <> ""),
+		    #"Filtered Rows1" = Table.SelectRows(#"Filtered Rows", each Text.Contains([Name], "/catalog/")),
+		    #"Split Column by Delimiter" = Table.SplitColumn(#"Filtered Rows1", "Name", Splitter.SplitTextByEachDelimiter({"/"}, QuoteStyle.Csv, true), {"Name.1", "Name.2"}),
+		    #"Renamed Columns" = Table.RenameColumns(#"Split Column by Delimiter",{{"Name.1", "Folder"}, {"Name.2", "Filename"}}),
+		    #"Removed Other Columns" = Table.SelectColumns(#"Renamed Columns",{"Content", "Folder", "Filename"}),
+		    #"Duplicated Column" = Table.DuplicateColumn(#"Removed Other Columns", "Folder", "Folder - Copy"),
+		    #"Extracted Last Characters" = Table.TransformColumns(#"Duplicated Column", {{"Folder - Copy", each Text.End(_, 10), type text}}),
+		    #"Renamed Columns1" = Table.RenameColumns(#"Extracted Last Characters",{{"Folder - Copy", "Date"}}),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Renamed Columns1",{{"Date", type date}}),
+		    #"Added Custom" = Table.AddColumn(#"Changed Type", "FileType", each if Text.Contains([Folder], "/scans") then "scan" else "snapshot"),
+		    #"Removed Other Columns1" = Table.SelectColumns(#"Added Custom",{"Content", "Filename", "Date", "FileType"}),
+		    #"Lowercased Text" = Table.TransformColumns(#"Removed Other Columns1",{{"Filename", Text.Lower, type text}})
+		in
+		    #"Lowercased Text"
+	lineageTag: 475d9127-a372-438e-9aa2-50a84e4595ad
+	queryGroup: 'Files - BlobStorage'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression Catalog-Scans =
+		let
+		    Source = #"Catalog-Files",
+		    #"Filtered Rows1" = Table.SelectRows(Source, each ([FileType] = "scan")),
+		    LastFullScanDate = Table.Max(Table.SelectRows(#"Filtered Rows1", each Text.Contains([Filename], "fullscan")), "Date")[Date]?,
+		    #"Filtered RowsAfterFullScan" = Table.SelectRows(#"Filtered Rows1", each (LastFullScanDate = null or [Date] >= LastFullScanDate)),
+		    #"Added Custom" = Table.AddColumn(#"Filtered RowsAfterFullScan", "Data", each Json.Document([Content])),
+		    #"Removed Other Columns" = Table.SelectColumns(#"Added Custom",{"Filename", "Date", "Data"}),
+		    #"Expanded Data" = Table.ExpandRecordColumn(#"Removed Other Columns", "Data", {"workspaces", "datasourceInstances", "scanCreatedDateTime", "misconfiguredDatasourceInstances"}, {"workspaces", "datasourceInstances", "scanCreatedDateTime", "misconfiguredDatasourceInstances"})
+		in
+		    #"Expanded Data"
+	lineageTag: 7aee5470-bd90-4f3d-97be-c870af2409a4
+	queryGroup: Catalog
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Catalog - Workspaces RAW' =
+		let
+		    Source = #"Catalog-Scans",
+		    #"Removed Other Columns" = Table.SelectColumns(Source,{"workspaces", "scanCreatedDateTime"}),
+		    #"Expanded Data.workspaces" = Table.ExpandListColumn(#"Removed Other Columns", "workspaces"),
+		    #"Renamed Columns" = Table.RenameColumns(#"Expanded Data.workspaces",{{"scanCreatedDateTime", "ScanDate"}}),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Renamed Columns",{{"ScanDate", type datetime}}),
+		    #"Expanded Data.workspaces1" = Table.ExpandRecordColumn(#"Changed Type", "workspaces", {"id", "name", "type", "state", "isOnDedicatedCapacity", "reports", "dashboards", "datasets", "dataflows", "datamarts", "users", "description", "capacityId"}, {"id", "name", "type", "state", "isOnDedicatedCapacity", "reports", "dashboards", "datasets", "dataflows", "datamarts", "users", "description", "capacityId"}),
+		    #"Grouped Rows" = Table.Group(#"Expanded Data.workspaces1", {"id"}, {{"AllRows", each _, type table [id=text, name=text, type=text, state=text, isOnDedicatedCapacity=logical, reports=list, dashboards=list, datasets=list, dataflows=list, ScanDate=nullable datetime]}}),
+		    #"Added Custom" = Table.AddColumn(#"Grouped Rows", "LastScan", each Table.First(Table.Sort([AllRows],  {"ScanDate", Order.Descending}))),
+		    #"Removed Columns" = Table.RemoveColumns(#"Added Custom",{"AllRows"}),
+		    #"Expanded LastScan" = Table.ExpandRecordColumn(#"Removed Columns", "LastScan", {"name", "type", "state", "isOnDedicatedCapacity", "reports", "dashboards", "datasets", "dataflows", "datamarts", "users", "description", "capacityId", "ScanDate"}, {"name", "type", "state", "isOnDedicatedCapacity", "reports", "dashboards", "datasets", "dataflows", "datamarts", "users", "description", "capacityId", "ScanDate"})
+		in
+		    #"Expanded LastScan"
+	lineageTag: b964aa42-2598-49a7-8103-5959c618c2fe
+	queryGroup: Catalog
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Catalog - Dataset RAW' =
+		let
+		    Source = #"Catalog - Workspaces RAW",
+		    #"Removed Other Columns" = Table.SelectColumns(Source,{"id", "datasets"}),
+		    #"Renamed Columns" = Table.RenameColumns(#"Removed Other Columns",{{"id", "WorkspaceId"}}),
+		    #"Filtered Rows" = Table.SelectRows(#"Renamed Columns", each [datasets] <> null and List.Count([datasets]) <> 0),
+		    #"Expanded datasets" = Table.ExpandListColumn(#"Filtered Rows", "datasets"),
+		    #"Expanded datasets1" = Table.ExpandRecordColumn(#"Expanded datasets", "datasets", {"id", "name", "tables", "configuredBy", "isEffectiveIdentityRequired", "isEffectiveIdentityRolesRequired", "targetStorageMode", "createdDate", "contentProviderType", "datasourceUsages", "sensitivityLabel", "relationships", "description", "endorsementDetails", "schemaMayNotBeUpToDate"}, {"id", "name", "tables", "configuredBy", "isEffectiveIdentityRequired", "isEffectiveIdentityRolesRequired", "targetStorageMode", "createdDate", "contentProviderType", "datasourceUsages", "sensitivityLabel", "relationships", "description", "endorsementDetails", "schemaMayNotBeUpToDate"}),
+		    #"Expanded endorsementDetails" = Table.ExpandRecordColumn(#"Expanded datasets1", "endorsementDetails", {"endorsement", "certifiedBy"}, {"endorsement", "certifiedBy"}),
+		    #"Renamed Columns1" = Table.RenameColumns(#"Expanded endorsementDetails",{{"id", "DatasetId"}, {"name", "Dataset"}, {"configuredBy", "Configured By"}, {"targetStorageMode", "Target Storage"}, {"createdDate", "Created On"}, {"contentProviderType", "Content Provider Type"}}),
+		    #"Reordered Columns" = Table.ReorderColumns(#"Renamed Columns1",{"WorkspaceId", "DatasetId", "Dataset", "Configured By", "Target Storage", "Created On", "Content Provider Type", "datasourceUsages", "tables", "relationships"}),
+		    #"Replaced Value" = Table.ReplaceValue(#"Reordered Columns",null,each [WorkspaceId] & [Dataset],Replacer.ReplaceValue,{"DatasetId"}),
+		    #"Filtered Rows1" = Table.SelectRows(#"Replaced Value", each [DatasetId] <> null and [DatasetId] <> ""),
+		    #"Renamed Columns2" = Table.RenameColumns(#"Filtered Rows1",{{"description", "Description"}, {"endorsement", "Endorsement"}, {"certifiedBy", "Certified By"}, {"schemaMayNotBeUpToDate", "Schema Issues"}, {"isEffectiveIdentityRequired", "Is EffectiveIdentity Required"}, {"isEffectiveIdentityRolesRequired", "Is EffectiveIdentity Roles Required"}})
+		in
+		    #"Renamed Columns2"
+	lineageTag: d48ae10f-d5d6-4d1b-abfa-be74840a302e
+	queryGroup: Catalog
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression Catalog-Snapshots =
+		let
+		    Source = #"Catalog-Files",
+		    #"Filtered Rows1" = Table.SelectRows(Source, each [FileType] = "snapshot"),
+		    #"Filtered Rows" = Table.SelectRows(#"Filtered Rows1", let latest = List.Max(#"Filtered Rows1"[Date]) in each [Date] = latest),
+		    #"Added Custom" = Table.AddColumn(#"Filtered Rows", "Data", each Json.Document([Content]))
+		in
+		    #"Added Custom"
+	lineageTag: 1d2f2483-88aa-4007-a3d6-437d0d851c9a
+	queryGroup: Catalog
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression FilesProxy =
+		let
+		    Source = [CatalogFiles = #"Catalog-Files from BlobStorage"
+		    ]
+		in
+		    Source
+	lineageTag: 532b27f7-8d98-4afd-88be-e3d764ab7768
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Record
+
+expression BlobStorageContainerName = if(BlobStorageContainer = null) then "fabricmonitor" else BlobStorageContainer
+	lineageTag: a999b654-8a6a-4d01-bddd-47a67a5602c0
+	queryGroup: 'Files - BlobStorage'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
+/// Required only when using the BlobStorage template
+/// Default: 'pbimonitor'
+expression BlobStorageContainer = "fabricmonitor" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=false]
+	lineageTag: 774dd3f6-7b13-4c0b-bc0c-12100d2cc1a3
+	queryGroup: 'Global Parameters'
+
+	annotation PBI_ResultType = Text
+
+	annotation PBI_NavigationStepName = Navigation
+
+expression Capacities =
+		let
+		    Source = AzureStorage.Blobs(BlobStorageName),
+		    pbicatalog1 = Source{[Name=BlobStorageContainerName]}[Data],
+		    #"Filtered Rows1" = Table.SelectRows(pbicatalog1, each Text.Contains([Name], "capacities.json")),
+		    #"Removed Other Columns" = Table.SelectColumns(#"Filtered Rows1",{"Content"}),
+		    ReadJSON = Table.AddColumn(#"Removed Other Columns", "Custom", each Json.Document([Content])),
+		    RemoveFileColumns = Table.SelectColumns(ReadJSON,{"Custom"}),
+		    #"Expanded Custom" = Table.ExpandListColumn(RemoveFileColumns, "Custom"),
+		    #"Expanded Custom1" = Table.ExpandRecordColumn(#"Expanded Custom", "Custom", {"id", "displayName", "admins", "sku", "state", "capacityUserAccessRight", "region", "users"}, {"Custom.id", "Custom.displayName", "Custom.admins", "Custom.sku", "Custom.state", "Custom.capacityUserAccessRight", "Custom.region", "Custom.users"}),
+		    #"Removed Columns" = Table.RemoveColumns(#"Expanded Custom1",{"Custom.admins", "Custom.users"}),
+		    #"Filtered Rows" = Table.SelectRows(#"Removed Columns", each not Text.Contains([Custom.sku], "PP3")),
+		    #"Renamed Columns" = Table.RenameColumns(#"Filtered Rows",{{"Custom.id", "id"}, {"Custom.displayName", "displayName"}, {"Custom.sku", "sku"}, {"Custom.state", ".state"}}),
+		    #"Removed Columns1" = Table.RemoveColumns(#"Renamed Columns",{".state", "Custom.capacityUserAccessRight", "Custom.region"})
+		in
+		    #"Removed Columns1"
+	lineageTag: e7d809b2-1376-4376-b396-0fee6d39b877
+	queryGroup: Capacity
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression Domains = ```
+		let
+		    Source = AzureStorage.Blobs(BlobStorageName),
+		    pbicatalog1 = Source{[Name=BlobStorageContainerName]}[Data],
+		    #"Filtered Rows1" = Table.SelectRows(pbicatalog1, each Text.Contains([Name], "WorkspacesByDomains")),
+		    #"Removed Other Columns" = Table.SelectColumns(#"Filtered Rows1",{"Content"}),
+		    ReadJSON = Table.AddColumn(#"Removed Other Columns", "Custom", each Json.Document([Content])),
+		    RemoveFileColumns = Table.SelectColumns(ReadJSON,{"Custom"}),
+		    ExpandRecordColumn = Table.ExpandListColumn(RemoveFileColumns, "Custom"),
+		    #"Expanded Custom" = Table.ExpandRecordColumn(ExpandRecordColumn, "Custom", {"DomainId", "DomainName", "WorkspaceName", "WorkspaceId"}, {"Custom.DomainId", "Custom.DomainName", "Custom.WorkspaceName", "Custom.WorkspaceId"}),
+		    #"Renamed Columns" = Table.RenameColumns(#"Expanded Custom",{{"Custom.DomainId", "DomainId"}, {"Custom.DomainName", "DomainName"}, {"Custom.WorkspaceName", "WorkspaceName"}, {"Custom.WorkspaceId", "WorkspaceId"}})
+		    in 
+		    #"Renamed Columns"
+		```
+	lineageTag: 225abef5-e200-478a-8e3e-19f91ff31db5
+	queryGroup: Domains
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Catalog - Workspace' =
+		let
+		    Source = #"Catalog - Workspaces RAW",
+		    #"Removed Other Columns" = Table.SelectColumns(Source,{"id", "name", "type", "state", "isOnDedicatedCapacity", "description", "capacityId"}),
+		    #"Renamed Columns" = Table.RenameColumns(#"Removed Other Columns",{{"id", "WorkspaceId"}, {"isOnDedicatedCapacity", "Is Dedicated Capacity (Y/N)"}, {"name", "Workspace"}, {"state", "State"}, {"type", "Type"}, {"description", "Description"}, {"capacityId", "CapacityId"}}),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Renamed Columns",{{"WorkspaceId", type text}, {"Workspace", type text}, {"Type", type text}, {"State", type text}, {"Is Dedicated Capacity (Y/N)", type logical}, {"CapacityId", type text}, {"Description", type text}}),
+		    #"Merged Queries" = Table.NestedJoin(#"Changed Type", {"CapacityId"}, Capacities, {"id"}, "Capacities", JoinKind.LeftOuter),
+		    #"Expanded Capacities" = Table.ExpandTableColumn(#"Merged Queries", "Capacities", {"displayName"}, {"Capacities.displayName"}),
+		    #"Renamed Columns1" = Table.RenameColumns(#"Expanded Capacities",{{"Capacities.displayName", "Capacity"}}),
+		    #"Added Conditional Column" = Table.AddColumn(#"Renamed Columns1", "Environment", each if Text.Contains([Workspace], "(DEV)") then "DEV" else if Text.Contains([Workspace], "(PRE)") then "PRE" else if Text.Contains([Workspace], "(PRO)") then "PRO" else null),
+		    #"Merged Queries1" = Table.NestedJoin(#"Added Conditional Column", {"WorkspaceId"}, Domains, {"WorkspaceId"}, "Domains", JoinKind.LeftOuter),
+		    #"Expanded Domains" = Table.ExpandTableColumn(#"Merged Queries1", "Domains", {"DomainName"}, {"Domains.DomainName"}),
+		    #"Renamed Columns2" = Table.RenameColumns(#"Expanded Domains",{ {"Domains.DomainName", "DomainName"}})
+		in
+		    #"Renamed Columns2"
+	lineageTag: 0a7c5537-d3e3-497d-b711-dcde70375227
+	queryGroup: Catalog
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

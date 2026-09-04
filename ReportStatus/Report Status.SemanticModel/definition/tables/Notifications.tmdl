@@ -1,0 +1,151 @@
+table Notifications
+	lineageTag: ce729bee-29ac-4c4a-ac90-1faa297a7d81
+
+	column NotificationDate
+		dataType: dateTime
+		isNullable: false
+		formatString: Long Date
+		sourceProviderType: date
+		lineageTag: 51e1e8cb-4e4a-4175-893a-44248f2da63d
+		summarizeBy: none
+		sourceColumn: NotificationDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Notification
+		dataType: string
+		isNullable: false
+		sourceProviderType: varchar(255)
+		lineageTag: 83f666cc-60b5-4732-a81c-e30730ab17d7
+		summarizeBy: none
+		sourceColumn: Notification
+
+		annotation SummarizationSetBy = Automatic
+
+	column WorkspaceId
+		dataType: string
+		isNullable: false
+		sourceProviderType: varchar(255)
+		lineageTag: d96e1ec9-e6fc-404b-aace-1c098d1ae69f
+		summarizeBy: none
+		sourceColumn: WorkspaceId
+
+		annotation SummarizationSetBy = Automatic
+
+	column DatasetId
+		dataType: string
+		isNullable: false
+		sourceProviderType: varchar(255)
+		lineageTag: 0c163e63-db5a-4cd6-9707-c3ed2dfbe012
+		summarizeBy: none
+		sourceColumn: DatasetId
+
+		annotation SummarizationSetBy = Automatic
+
+	column CreatedBy
+		dataType: string
+		isNullable: false
+		sourceProviderType: varchar(255)
+		lineageTag: c5235a59-a5b9-45b0-8c11-d7517136c6ce
+		summarizeBy: none
+		sourceColumn: CreatedBy
+
+		annotation SummarizationSetBy = Automatic
+
+	column NotificationId
+		dataType: int64
+		isNullable: false
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 6014a6e9-60d7-4f33-97a2-f5a394b0de8f
+		summarizeBy: none
+		sourceColumn: NotificationId
+
+		annotation SummarizationSetBy = User
+
+	column EndDate
+		dataType: dateTime
+		formatString: Long Date
+		sourceProviderType: date
+		lineageTag: 64fc8413-2f59-4712-8ca6-a88aa396526d
+		summarizeBy: none
+		sourceColumn: EndDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column WorkspaceName
+		dataType: string
+		isNullable: false
+		sourceProviderType: varchar(255)
+		lineageTag: d5d52b50-1689-4f08-9def-f9c57f2396c1
+		summarizeBy: none
+		sourceColumn: WorkspaceName
+
+		annotation SummarizationSetBy = Automatic
+
+	column DatasetName
+		dataType: string
+		isNullable: false
+		sourceProviderType: varchar(255)
+		lineageTag: 5812362c-d3b2-45f7-8845-b69d00d0451c
+		summarizeBy: none
+		sourceColumn: DatasetName
+
+		annotation SummarizationSetBy = Automatic
+
+	column NotificationStatus
+		dataType: string
+		isNullable: false
+		sourceProviderType: varchar(255)
+		lineageTag: 5af7a464-7411-4bdd-8609-3e983551bb4b
+		summarizeBy: none
+		sourceColumn: NotificationStatus
+
+		annotation SummarizationSetBy = Automatic
+
+	column Environment
+		dataType: string
+		isNullable: false
+		sourceProviderType: varchar(3)
+		lineageTag: 3f1a75bc-7e19-42fd-809c-7635f96a88ae
+		summarizeBy: none
+		sourceColumn: Environment
+
+		annotation SummarizationSetBy = Automatic
+
+	column ClearedBy
+		dataType: string
+		sourceProviderType: varchar(255)
+		lineageTag: dbf1ec9d-357b-4c06-b9e9-7f2296917783
+		summarizeBy: none
+		sourceColumn: ClearedBy
+
+		annotation SummarizationSetBy = Automatic
+
+	column Link
+		dataType: string
+		sourceProviderType: varchar(1000)
+		lineageTag: 41df7511-2a9b-4f9f-a53b-599b75809c84
+		dataCategory: WebUrl
+		summarizeBy: none
+		sourceColumn: Link
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Notifications = m
+		mode: directQuery
+		source =
+				let
+				    Source = Sql.Database("busc6dxmchierdn6rby46laxoa-uxfhnidcfrcenh64rrzsoxti5q.database.fabric.microsoft.com", "sqldb_report_status-88b8b8ef-96ba-4860-bc12-a92f45ab72ce"),
+				    dbo_Notifications = Source{[Schema="dbo",Item="Notifications"]}[Data]
+				in
+				    dbo_Notifications
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

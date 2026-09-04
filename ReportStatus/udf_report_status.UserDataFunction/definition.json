@@ -1,0 +1,49 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/userDataFunction/definition/1.1.0/schema.json",
+  "runtime": "PYTHON",
+  "connectedDataSources": [
+    {
+      "alias": "sqldbreportstat",
+      "artifactId": "deb0230c-bfc2-4518-9476-b861dbd0932f",
+      "artifactType": "SqlDbNative",
+      "workspaceId": "00000000-0000-0000-0000-000000000000"
+    }
+  ],
+  "functions": [
+    {
+      "name": "insert_notification",
+      "description": "",
+      "isPublicEndpointEnabled": true
+    },
+    {
+      "name": "remove_notification",
+      "description": "",
+      "isPublicEndpointEnabled": true
+    }
+  ],
+  "libraries": {
+    "public": [
+      {
+        "name": "azure-identity",
+        "type": "PYPI",
+        "version": "1.25.3"
+      },
+      {
+        "name": "azure.keyvault",
+        "type": "PYPI",
+        "version": "4.2.0"
+      },
+      {
+        "name": "fabric-user-data-functions",
+        "type": "PYPI",
+        "version": "1.0"
+      },
+      {
+        "name": "requests",
+        "type": "PYPI",
+        "version": "2.34.2"
+      }
+    ],
+    "private": []
+  }
+}

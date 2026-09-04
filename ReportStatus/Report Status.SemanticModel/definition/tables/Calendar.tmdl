@@ -1,0 +1,50 @@
+table Calendar
+	lineageTag: cb2aeafd-ce50-4269-88c5-947720ca64e2
+
+	column Date
+		formatString: Long Date
+		lineageTag: a135f2f2-716a-4906-a7af-fc6a7f18cde1
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Year
+		formatString: 0
+		lineageTag: 6f55e9d6-36b0-4765-ba95-4b2d2c8ab1a6
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Year]
+
+		annotation SummarizationSetBy = User
+
+	column Month
+		formatString: 0
+		lineageTag: 88f28b89-8016-4b7d-8533-5faa0ac04ed6
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Month]
+
+		annotation SummarizationSetBy = User
+
+	partition Calendar = calculated
+		mode: import
+		source =
+				
+				VAR MinYear = YEAR ( MIN ( Notifications[NotificationDate] ) )
+				VAR MaxYear = YEAR ( MAX ( Notifications[NotificationDate] ) )
+				RETURN
+				ADDCOLUMNS (
+				    FILTER (
+				        CALENDARAUTO( ),
+				        AND ( YEAR ( [Date] ) >= MinYear, YEAR ( [Date] ) <= MaxYear )
+				    ),
+				    "Year",  YEAR ( [Date] ),
+				    "Month", YEAR([Date]) * 100 + MONTH([Date])
+				)
+
+	annotation PBI_Id = 9df2e1da1e25401f90dafa0898132a0c
+

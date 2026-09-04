@@ -1,0 +1,344 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "0fe5069763c0eb48817e",
+  "position": {
+    "x": 32,
+    "y": 512,
+    "z": 6000,
+    "height": 192,
+    "width": 1216,
+    "tabOrder": 6000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Notifications"
+                    }
+                  },
+                  "Property": "NotificationId"
+                }
+              },
+              "queryRef": "Notifications.NotificationId",
+              "nativeQueryRef": "NotificationId"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Catalog - Dataset"
+                    }
+                  },
+                  "Property": "Domain"
+                }
+              },
+              "queryRef": "Catalog - Dataset.Domain",
+              "nativeQueryRef": "Domain"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Catalog - Dataset"
+                    }
+                  },
+                  "Property": "Workspace"
+                }
+              },
+              "queryRef": "Catalog - Dataset.Workspace",
+              "nativeQueryRef": "Workspace"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Catalog - Dataset"
+                    }
+                  },
+                  "Property": "Model"
+                }
+              },
+              "queryRef": "Catalog - Dataset.Model",
+              "nativeQueryRef": "Model"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Notifications"
+                    }
+                  },
+                  "Property": "Notification"
+                }
+              },
+              "queryRef": "Notifications.Notification",
+              "nativeQueryRef": "Notification"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Notifications"
+                    }
+                  },
+                  "Property": "CreatedBy"
+                }
+              },
+              "queryRef": "Notifications.CreatedBy",
+              "nativeQueryRef": "CreatedBy"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Notifications"
+                    }
+                  },
+                  "Property": "NotificationDate"
+                }
+              },
+              "queryRef": "Notifications.NotificationDate",
+              "nativeQueryRef": "NotificationDate"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Notifications"
+                    }
+                  },
+                  "Property": "EndDate"
+                }
+              },
+              "queryRef": "Notifications.EndDate",
+              "nativeQueryRef": "EndDate"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Notifications"
+                    }
+                  },
+                  "Property": "ClearedBy"
+                }
+              },
+              "queryRef": "Notifications.ClearedBy",
+              "nativeQueryRef": "ClearedBy"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Status"
+                    }
+                  },
+                  "Property": "Status"
+                }
+              },
+              "queryRef": "Status.Status",
+              "nativeQueryRef": "Status"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "columnHeaders": [
+        {
+          "properties": {
+            "columnAdjustment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'fixedWidth'"
+                }
+              }
+            },
+            "defaultColumnWidth": {
+              "expr": {
+                "Literal": {
+                  "Value": "90D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "4D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Notifications.NotificationId"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "165.71024565165152D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Catalog - Dataset.Workspace"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "197.52554121054385D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Notifications.CreatedBy"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "149.0539916082882D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Notifications.NotificationDate"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "142.99717195615608D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Notifications.EndDate"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "136.9662249836814D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Notifications.ClearedBy"
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'List of closed messages'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "e4e0590a0a30ff1c1be5",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Notifications"
+              }
+            },
+            "Property": "EndDate"
+          }
+        },
+        "type": "Advanced",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "n",
+              "Entity": "Notifications",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "Not": {
+                  "Expression": {
+                    "Comparison": {
+                      "ComparisonKind": 0,
+                      "Left": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "n"
+                            }
+                          },
+                          "Property": "EndDate"
+                        }
+                      },
+                      "Right": {
+                        "Literal": {
+                          "Value": "null"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "User"
+      }
+    ]
+  }
+}

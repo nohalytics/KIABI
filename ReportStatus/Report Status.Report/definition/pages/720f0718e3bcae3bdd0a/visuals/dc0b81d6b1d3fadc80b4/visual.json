@@ -1,0 +1,251 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "dc0b81d6b1d3fadc80b4",
+  "position": {
+    "x": 1040,
+    "y": 224,
+    "z": 1000,
+    "height": 112,
+    "width": 208,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "actionButton",
+    "objects": {
+      "icon": [
+        {
+          "properties": {
+            "shapeType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'blank'"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        }
+      ],
+      "text": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Submit your notification message'"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "visualLink": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "type": {
+              "expr": {
+                "Literal": {
+                  "Value": "'DataFunction'"
+                }
+              }
+            },
+            "dataFunction": {
+              "kind": "ItemLocation",
+              "byReference": {
+                "itemId": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'1f06d1e0-04b5-472b-ba53-87d3bcfdcfec'"
+                    }
+                  }
+                },
+                "workspaceId": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'a076caa5-2c62-4644-9fdc-8c73275e68ec'"
+                    }
+                  }
+                }
+              },
+              "metadata": {
+                "dataFunction": {
+                  "name": "insert_notification",
+                  "autoRefresh": true,
+                  "parameters": [
+                    {
+                      "name": "workspaceId",
+                      "dataType": "string",
+                      "isOptional": false,
+                      "defaultValue": null,
+                      "type": "ValueParameter",
+                      "value": {
+                        "expr": {
+                          "Measure": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Entity": "_KPI"
+                              }
+                            },
+                            "Property": "WorkdpaceId"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "name": "workspaceName",
+                      "dataType": "string",
+                      "isOptional": false,
+                      "defaultValue": null,
+                      "type": "ValueParameter",
+                      "value": {
+                        "expr": {
+                          "Measure": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Entity": "_KPI"
+                              }
+                            },
+                            "Property": "WorkdpaceName"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "name": "datasetId",
+                      "dataType": "string",
+                      "isOptional": false,
+                      "defaultValue": null,
+                      "type": "ValueParameter",
+                      "value": {
+                        "expr": {
+                          "Measure": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Entity": "_KPI"
+                              }
+                            },
+                            "Property": "DatasetId"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "name": "datasetName",
+                      "dataType": "string",
+                      "isOptional": false,
+                      "defaultValue": null,
+                      "type": "ValueParameter",
+                      "value": {
+                        "expr": {
+                          "Measure": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Entity": "_KPI"
+                              }
+                            },
+                            "Property": "DatasetName"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "name": "createdBy",
+                      "dataType": "string",
+                      "isOptional": false,
+                      "defaultValue": null,
+                      "type": "ValueParameter",
+                      "value": {
+                        "expr": {
+                          "Measure": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Entity": "_KPI"
+                              }
+                            },
+                            "Property": "Createdby"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "name": "notification",
+                      "dataType": "string",
+                      "isOptional": false,
+                      "defaultValue": null,
+                      "type": "SlicerParameter",
+                      "slicer": "5a2ca3a2c3167af0f86c",
+                      "autoClear": true
+                    },
+                    {
+                      "name": "notificationStatus",
+                      "dataType": "string",
+                      "isOptional": false,
+                      "defaultValue": null,
+                      "type": "ValueParameter",
+                      "value": {
+                        "expr": {
+                          "Measure": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Entity": "_KPI"
+                              }
+                            },
+                            "Property": "Status"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "name": "environment",
+                      "dataType": "string",
+                      "isOptional": false,
+                      "defaultValue": null,
+                      "type": "ValueParameter",
+                      "value": {
+                        "expr": {
+                          "Measure": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Entity": "_KPI"
+                              }
+                            },
+                            "Property": "Environment"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "name": "Link",
+                      "dataType": "string",
+                      "isOptional": true,
+                      "defaultValue": "",
+                      "type": "SlicerParameter",
+                      "slicer": "b79b6d7c1f1f12ab9932",
+                      "autoClear": true
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "howCreated": "InsertVisualButton"
+}
