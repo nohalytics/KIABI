@@ -1,0 +1,12 @@
+relationship 4713f49f-f47b-4a79-a2f1-aaa3a4cb7772
+	fromColumn: 'Internet Sales'.ProductKey
+	toColumn: Products.ProductKey
+
+relationship 71ff30ee-4c23-d3ad-2420-87ad5842a8c6
+	fromColumn: FieldParameter.Language
+	toColumn: Language.Language
+
+relationship 9bbbf416-ed97-dd2d-4439-eb27093ffd94
+	fromColumn: 'Internet Sales'.OrderDateKey
+	toColumn: Calendar.yyyymmdd
+

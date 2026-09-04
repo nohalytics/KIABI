@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Traduction KIABI"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "97b8a606-cb03-932f-45dc-1fb9ac1f9a71"
+  }
+}
